@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { linkWithSomeone,findSpecificAmisById,Amis } from "../models/Amis"
+import { linkWithSomeone,findSpecificAmisById,Amis, findAmisById } from "../models/Amis"
 import { findUserById } from "../models/User"
-import { didIAsked,createFriendRequest } from "../models/FriendRequest"
+import { didIAsked,createFriendRequest,deleteFriendRequest } from "../models/FriendRequest"
 
 export const askFriend = (req: Request, res: Response) => {
   const idValidator = Number(req.params.idValidator) as (number | null)
@@ -34,16 +34,37 @@ export const askFriend = (req: Request, res: Response) => {
 }
 
 export const acceptFriend = (req: Request, res: Response) => {
-  // Dummy login logic
-  res.json({ message: `Get friends of the current user` })
+  
+  const idRequestor = Number(req.params.idRequestor) as (number | null)
+  const currentIdUser = req.user
+
+  if (!idRequestor) {
+      return res.status(400).json({ error: "idRequestor is required" })
+  }
+  linkWithSomeone(currentIdUser, idRequestor).then((amis) => {
+    deleteFriendRequest(currentIdUser, idRequestor).then((friendRequest) => {
+      if (!friendRequest) {
+        res.json({ message: `Friend request deleted, new friend acquired !` })
+      }
+    })
+  })
+
 }
 
 export const refuseFriend = (req: Request, res: Response) => {
-  // Dummy login logic
-  res.json({ message: `Get friends of the current user` })
+  deleteFriendRequest(req.user, Number(req.params.idRequestor)).then((friendRequest) => {
+    if (!friendRequest) {
+      res.json({ message: `Friend request deleted` })
+    }
+  })
 }
 
 export const getFriends = (req: Request, res: Response) => {
-  // Dummy login logic
-  res.json({ message: `Get friends of the current user` })
+  const currentIdUser = req.user
+  findAmisById(currentIdUser).then((amis) => {
+    if (!amis) {
+      res.status(404).json({ error: "No friends found" })
+    }
+    res.json(amis)
+  })
 }

@@ -15,6 +15,17 @@ export async function createFriendRequest(id_requestor: number, id_validator: nu
   return data as FriendRequest;
 }
 
+export async function deleteFriendRequest(id_requestor: number, id_validator: number): Promise<FriendRequest | null> {
+  const { data, error } = await supabase
+    .from('friend_requests')
+    .delete()
+    .eq('id_requestor', id_requestor)
+    .eq('id_validator', id_validator);
+
+  if (error) return null;
+  return data as FriendRequest;
+}
+
 export async function findFriendRequest(id: number): Promise<FriendRequest[] | null> {
   const { data, error } = await supabase
     .from('friend_requests')
