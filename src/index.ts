@@ -1,4 +1,6 @@
 import express from "express"
+import swaggerJsdoc from "swagger-jsdoc"
+import swaggerUi from "swagger-ui-express"
 import routes from "./routes"
 
 import { supabase } from './supabaseClient';
@@ -32,6 +34,9 @@ async function testSupabaseConnection() {
 //   .then(() => console.log('🏁 Test terminé'))
 //   .catch(err => console.error('🔴 Erreur globale:', err));
 
+const swaggerOptions = require("../swaggerOptions.js")
+const swaggerSpec = swaggerJsdoc(swaggerOptions)
+
 const app = express()
 app.use(express.json())
 
@@ -51,8 +56,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
 app.use("/api", routes)
 
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000")
+  console.log("Swagger docs available at http://localhost:3000/api-docs")
 })
