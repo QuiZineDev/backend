@@ -1,7 +1,7 @@
 import { Router } from "express"
-import { getQuizzes } from "../controllers/quizController"
+import { getQuizes } from "../controllers/quizController"
 const router = Router()
 
-router.get("/", getQuizzes)
+router.get("/:idQuiz", getQuizes)
 
 export default router
