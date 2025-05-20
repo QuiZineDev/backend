@@ -1,11 +1,12 @@
 import { supabase } from '../supabaseClient';
-
+import { findQuestionsByQuizId } from '../models/Question';
 import { Quiz } from '../types/core/Quiz';
 import { User } from './User';
+import { QuizWithQuestionsWithChoices } from '../types/PopulatedTypes';
 
 export	{ Quiz };
 
-export async function findQuizById(id: number, user:User): Promise<Quiz | null> {
+export async function findQuizById(id: number, user:User): Promise<QuizWithQuestionsWithChoices | null> {
   const { data, error } = await supabase
     .from('quiz')
     .select('*')
@@ -14,7 +15,8 @@ export async function findQuizById(id: number, user:User): Promise<Quiz | null> 
     .single();
 
   if (error) return null;
-  return data as Quiz;
+  data.questions = await findQuestionsByQuizId(id);
+  return data as QuizWithQuestionsWithChoices;
 }
 
 export async function findQuizzesByName(name: string): Promise<Quiz[]> {

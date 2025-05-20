@@ -25,6 +25,9 @@ export function isQuestion(entity: LabelisableEntity): entity is Question {
 export interface QuizWithQuestions extends Quiz {
   questions: Question[];
 }
+export interface QuizWithQuestionsWithChoices extends Quiz {
+  questions: QuestionWithChoices[];
+}
 
 export interface QuizWithCreator extends Quiz {
   creator: User;
