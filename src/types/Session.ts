@@ -1,4 +1,4 @@
-  interface Session {
-    id: number;
-    id_quiz: number;
-  }
+export interface Session {
+  id: number;
+  id_quiz: number;
+}

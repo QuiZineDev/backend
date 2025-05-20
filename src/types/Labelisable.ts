@@ -1,3 +1,3 @@
- interface Labelisable {
-    id: number;
-  }
+export interface Labelisable {
+  id: number;
+}

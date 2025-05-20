@@ -1,4 +1,4 @@
-  interface Label {
-    id: number;
-    nom: string;
-  }
+export interface Label {
+  id: number;
+  nom: string;
+}
