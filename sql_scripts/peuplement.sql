@@ -137,9 +137,9 @@ INSERT INTO modification_request(id_requestor, id_creator, id_question, message,
   (4,3,3,'Ajouter plus d’options',   FALSE);
 
 INSERT INTO comment(id_creator, id_quiz, message, datetime) VALUES
-  (3,1,'Très bien fait !', now()),
-  (4,3,'Sympa ce quiz tech.',      now()),
-  (5,5,'Histoire captivante.',    now());
+  (3,8,'Très bien fait !', now()),
+  (4,9,'Sympa ce quiz tech.',      now()),
+  (5,10,'Histoire captivante.',    now());
 
 INSERT INTO grade(id_creator, id_labelisable, grade) VALUES
   (3,1,4.2),
