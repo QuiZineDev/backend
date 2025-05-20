@@ -1,4 +1,3 @@
-// src/models/User.ts
 import { supabase } from '../supabaseClient';
 
 import { Quiz } from '../types/core/Quiz';
