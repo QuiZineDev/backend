@@ -7,8 +7,9 @@ import searchRouter from "./search"
 import historyRouter from "./history"
 import loginRouter from "./login"
 import profileRouter from "./profile"
-
 import friendsRouter from "./friends"
+import signupRouter from "./signup"
+import inviteUsersRouter from "./inviteUsers"
 
 const router = Router()
 
@@ -21,5 +22,7 @@ router.use("/history", historyRouter)
 router.use("/login", loginRouter)
 router.use("/profile", profileRouter)
 router.use("/friends", friendsRouter)
+router.use("/signup", signupRouter)
+router.use("/inviteUser", inviteUsersRouter)
 
 export default router
