@@ -1,0 +1,3 @@
+ interface Labelisable {
+    id: number;
+  }
