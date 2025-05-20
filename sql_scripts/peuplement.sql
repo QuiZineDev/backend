@@ -38,15 +38,16 @@ INSERT INTO "user"(id, username, password, picture, admin) VALUES
 
 -- 3) QUIZ & LABELISABLE (6 quizzes)
 INSERT INTO quiz(id, nom, picture, private, id_creator) VALUES
-  (1, 'Général A',      NULL, FALSE, 1),
-  (2, 'Culture B',      NULL, TRUE,  2),
-  (3, 'Tech Quiz',      NULL, FALSE, 3),
-  (4, 'Science Facts',  NULL, TRUE,  4),
-  (5, 'History 101',    NULL, FALSE, 5),
-  (6, 'Math Challenge', NULL, TRUE,  6);
+  (7, 'Général A',      NULL, FALSE, 1),
+  (8, 'Culture B',      NULL, TRUE,  2),
+  (9, 'Tech Quiz',      NULL, FALSE, 3),
+  (10, 'Science Facts',  NULL, TRUE,  4),
+  (11, 'History 101',    NULL, FALSE, 5),
+  (12, 'Math Challenge', NULL, TRUE,  6);
 
 INSERT INTO labelisable(id) VALUES
-  (1),(2),(3),(4),(5),(6);
+  (1),(2),(3),(4),(5),(6),
+  (7),(8),(9),(10),(11),(12);
 
 -- 4) LABELS & LIAISONS (4 labels)
 INSERT INTO label(id, nom) VALUES
@@ -60,7 +61,7 @@ INSERT INTO nn_label_labelisable(id_label, id_labelisable) VALUES
 
 -- 5) SESSIONS (1 par quiz)
 INSERT INTO session(id, id_quiz) VALUES
-  (1,1),(2,2),(3,3),(4,4),(5,5),(6,6);
+  (1,7),(2,8),(3,9),(4,10),(5,11),(6,12);
 
 -- 6) QUESTIONS (6 questions, id_answer NULL pour l'instant)
 INSERT INTO question(id, name, id_answer, grade, picture, duration, id_creator, private) VALUES
@@ -118,7 +119,7 @@ WHERE
 
 -- 9) LIAISONS QUIZ ⇆ QUESTION
 INSERT INTO nn_quiz_question(id_quiz, id_question) VALUES
-  (1,1),(1,2),(3,3),(4,4),(5,5),(6,6);
+  (7,1),(7,2),(9,3),(10,4),(11,5),(12,6);
 
 -- 10) AMITIÉS & DEMANDES D’AMI (6 relations + 3 demandes)
 INSERT INTO amis(id_requestor, id_validator) VALUES

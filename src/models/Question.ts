@@ -18,7 +18,7 @@ export async function findQuestionById(id: number): Promise<QuestionWithChoices 
   return data as QuestionWithChoices;
 }
 
-export async function createQuestion(name: string, id_answer: number, grade: number, picture: (Uint8Array | null), duration: number, id_creator: number, isprivate: boolean): Promise<Question | null> {
+export async function createQuestion(name: string, id_answer: number, grade: 0, picture: (Uint8Array | null), duration: number, id_creator: number, isprivate: boolean): Promise<Question | null> {
   const newQuestion = {
     name,
     id_answer,
