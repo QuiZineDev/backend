@@ -4,12 +4,9 @@ import { User } from "./entity/User"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: process.env.DB_HOST || "localhost",
-    port: parseInt(process.env.DB_PORT || "5432"),
-    username: process.env.DB_USERNAME || "test",
-    password: process.env.DB_PASSWORD || "test",
-    database: process.env.DB_DATABASE || "test",
-    synchronize: true,
+    url: process.env.DATABASE_URL || "https://supabase-quiz.kerboul.me",
+    ssl: true,
+    synchronize: false, // Plus prudent avec Supabase de ne pas synchroniser automatiquement
     logging: false,
     entities: [User],
     migrations: [],

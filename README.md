@@ -14,18 +14,14 @@ Pour lancer le projet avec Docker Compose :
 docker-compose up --build
 ```
 
-Cela va démarrer à la fois la base PostgreSQL et l'application Node.js avec TypeORM.
+Cela va démarrer l'application Node.js avec TypeORM configurée pour se connecter à Supabase.
 
 Les variables d'environnement sont déjà alignées entre le code et le docker-compose.
 
 ---
 
-Pour accéder à la base de données PostgreSQL en local :
-- Host : localhost
-- Port : 5432
-- User : test
-- Password : test
-- Database : test
+Pour vous connecter à Supabase :
+- URL : https://supabase-quiz.kerboul.me
 
 ---
 
