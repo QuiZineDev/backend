@@ -1,11 +1,33 @@
 import { Router } from "express"
-import usersRouter from "./users"
+import libraryRouter from "./library"
+import quizRouter from "./quiz"
+import exploreRouter from "./explore"
+import recentRouter from "./recent"
+import searchRouter from "./search"
+import historyRouter from "./history"
 import authRouter from "./auth"
+import profileRouter from "./profile"
+import quizResultsRouter from "./quizResults"
+import creatQuizRouter from "./createQuiz"
+import rateRouter from "./rate"
+import friendsRouter from "./friends"
+import inviteUsersRouter from "./inviteUsers"
 
 const router = Router()
 
-router.use("/users", usersRouter)
-router.use("/auth", authRouter)
+router.use("/library", libraryRouter)
+router.use("/quiz", quizRouter)
+router.use("/explore", exploreRouter)
+router.use("/recent", recentRouter)
+router.use("/search", searchRouter)
+router.use("/history", historyRouter)
+router.use("/", authRouter)
+router.use("/profile", profileRouter)
+router.use("/friends", friendsRouter)
+router.use("/inviteUser", inviteUsersRouter)
+router.use("/quizResults", quizResultsRouter)
+router.use("/createQuiz", creatQuizRouter)
+router.use("/rate", rateRouter)
 
 
 export default router
