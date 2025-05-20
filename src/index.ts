@@ -22,15 +22,13 @@
 
 // setup express
 
-const express = require("express")
+import express from "express"
+import routes from "./routes"
 
 const app = express()
-const PORT = 3000
+app.use(express.json())
+app.use("/api", routes)
 
-app.get("/", (_req, res) => {
-  res.send("Hello, Express + TypeScript!")
-})
-
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`)
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000")
 })
