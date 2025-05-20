@@ -8,6 +8,7 @@ import historyRouter from "./history"
 import loginRouter from "./login"
 import profileRouter from "./profile"
 
+import friendsRouter from "./friends"
 
 const router = Router()
 
@@ -19,5 +20,6 @@ router.use("/search", searchRouter)
 router.use("/history", historyRouter)
 router.use("/login", loginRouter)
 router.use("/profile", profileRouter)
+router.use("/friends", friendsRouter)
 
 export default router

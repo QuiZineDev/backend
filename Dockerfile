@@ -8,7 +8,10 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Installer les dépendances
-RUN npm install --production
+RUN npm install
+
+# Installer ts-node globalement pour s'assurer qu'il est disponible
+RUN npm install -g ts-node
 
 # Copier le reste du code source
 COPY . .
