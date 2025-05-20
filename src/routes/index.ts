@@ -8,6 +8,7 @@ import historyRouter from "./history"
 import loginRouter from "./login"
 import profileRouter from "./profile"
 import quizResultsRouter from "./quizResults"
+import creatQuizRouter from "./createQuiz"
 
 import friendsRouter from "./friends"
 
@@ -23,5 +24,6 @@ router.use("/login", loginRouter)
 router.use("/profile", profileRouter)
 router.use("/friends", friendsRouter)
 router.use("/quizResults", quizResultsRouter)
+router.use("/createQuiz", creatQuizRouter)
 
 export default router
