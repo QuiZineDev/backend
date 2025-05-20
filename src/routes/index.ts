@@ -12,8 +12,36 @@ import creatQuizRouter from "./createQuiz"
 import rateRouter from "./rate"
 import friendsRouter from "./friends"
 import inviteUsersRouter from "./inviteUsers"
+import sessionRouter from "./session"
 
 const router = Router()
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Accueil de l'API
+ *     description: Endpoint d'accueil, liste les routes principales de l'API.
+ *     tags: [Root]
+ *     responses:
+ *       200:
+ *         description: Liste des routes principales
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               example:
+ *                 routes: [
+ *                   "/auth", "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/inviteUsers", "/quizResults", "/createQuiz", "/rate", "/session"
+ *                 ]
+ */
+router.get("/", (req, res) => {
+  res.json({
+    routes: [
+      "/auth", "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/inviteUsers", "/quizResults", "/createQuiz", "/rate", "/session"
+    ]
+  })
+})
 
 router.use((req, res, next) => {
     const publicPaths = [
@@ -43,13 +71,12 @@ router.use("/explore", exploreRouter)
 router.use("/recent", recentRouter)
 router.use("/search", searchRouter)
 router.use("/history", historyRouter)
-router.use("/", authRouter)
 router.use("/profile", profileRouter)
 router.use("/friends", friendsRouter)
-router.use("/inviteUser", inviteUsersRouter)
+router.use("/inviteUsers", inviteUsersRouter)
 router.use("/quizResults", quizResultsRouter)
 router.use("/createQuiz", creatQuizRouter)
 router.use("/rate", rateRouter)
-
+router.use("/session", sessionRouter)
 
 export default router
