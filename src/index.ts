@@ -28,9 +28,9 @@ async function testSupabaseConnection() {
 }
 
 // Exécuter le test
-testSupabaseConnection()
-  .then(() => console.log('🏁 Test terminé'))
-  .catch(err => console.error('🔴 Erreur globale:', err));
+// testSupabaseConnection()
+//   .then(() => console.log('🏁 Test terminé'))
+//   .catch(err => console.error('🔴 Erreur globale:', err));
 
 const app = express()
 app.use(express.json())

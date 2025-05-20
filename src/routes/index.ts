@@ -15,6 +15,28 @@ import inviteUsersRouter from "./inviteUsers"
 
 const router = Router()
 
+router.use((req, res, next) => {
+    const publicPaths = [
+      "/login",
+      "/signup"
+    ];
+  
+    if (
+      publicPaths.some(path => req.path.startsWith(path)) ||
+      req.method === "OPTIONS" // pour CORS preflight
+    ) {
+        console.log("publicpath")
+      return next();
+    }
+  
+    if (req.isAuthenticated && req.isAuthenticated()) {
+        console.log("is authed")
+      return next();
+    }
+    console.log("not authed")
+    return res.status(401).json({ error: "Unauthorized" });
+  });
+
 router.use("/library", libraryRouter)
 router.use("/quiz", quizRouter)
 router.use("/explore", exploreRouter)
