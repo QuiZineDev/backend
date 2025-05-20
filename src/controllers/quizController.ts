@@ -8,7 +8,8 @@ export const getQuizes = (req: Request, res: Response) => {
   if (!idQuiz) {
     return res.status(400).json({ error: "idQuiz is required" })
   }
-  findQuizById(idQuiz).then((quiz) => {
+  findQuizById(idQuiz, req.user).then((quiz) => {
+    console.log(req.user)
     if (quiz) {
       res.json(quiz)
     } else if(!quiz){
