@@ -24,7 +24,6 @@
 
 import express from "express"
 import routes from "./routes"
-import { createClient } from "@supabase/supabase-js"
 
 import { supabase } from './supabaseClient';
 
