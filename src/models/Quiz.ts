@@ -1,14 +1,16 @@
 import { supabase } from '../supabaseClient';
 
 import { Quiz } from '../types/core/Quiz';
+import { User } from './User';
 
 export	{ Quiz };
 
-export async function findQuizById(id: number): Promise<Quiz | null> {
+export async function findQuizById(id: number, user:User): Promise<Quiz | null> {
   const { data, error } = await supabase
     .from('quiz')
     .select('*')
     .eq('id', id)
+    .or(`id_creator.eq.${user.id}, private.eq.false`)
     .single();
 
   if (error) return null;
