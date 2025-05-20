@@ -1,12 +1,12 @@
-import { Quiz } from "./Quiz";
-import { Question } from "./Question";
-import { User } from "./User";
-import { Choice } from "./Choice";
-import { Session } from "./Session";
-import { Participation } from "./Participation";
-import { Answers } from "./Answer";
-import { Grade } from "./Grade";
-import { Labelisable } from "./Labelisable";
+import { Quiz } from "./core/Quiz";
+import { Question } from "./core/Question";
+import { User } from "./core/User";
+import { Choice } from "./core/Choice";
+import { Session } from "./core/Session";
+import { Participation } from "./core/Participation";
+import { Answers } from "./core/Answer";
+import { Grade } from "./core/Grade";
+import { Labelisable } from "./core/Labelisable";
 
 // Helpers
 export type LabelisableEntity = Quiz | Question;
