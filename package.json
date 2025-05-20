@@ -9,9 +9,10 @@
       "typescript": "^5.8.2"
    },
    "dependencies": {
+      "save-dev": "^0.0.1-security",
+      "express": "^5.1.0",
       "pg": "^8.14.1",
       "reflect-metadata": "^0.2.2",
-      "save-dev": "^0.0.1-security",
       "typeorm": "0.3.24"
    },
    "scripts": {
