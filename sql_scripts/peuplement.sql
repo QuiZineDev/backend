@@ -24,6 +24,10 @@ TRUNCATE TABLE
   "user"
 CASCADE;
 
+INSERT INTO labelisable(id) VALUES
+  (1),(2),(3),(4),(5),(6),
+  (7),(8),(9),(10),(11),(12);
+
 -- 2) UTILISATEURS (9 en tout)
 INSERT INTO "user"(id, username, password, picture, admin) VALUES
   (1, 'alice',    'pwdAlice', NULL, FALSE),
@@ -44,10 +48,6 @@ INSERT INTO quiz(id, nom, picture, private, id_creator) VALUES
   (10, 'Science Facts',  NULL, TRUE,  4),
   (11, 'History 101',    NULL, FALSE, 5),
   (12, 'Math Challenge', NULL, TRUE,  6);
-
-INSERT INTO labelisable(id) VALUES
-  (1),(2),(3),(4),(5),(6),
-  (7),(8),(9),(10),(11),(12);
 
 -- 4) LABELS & LIAISONS (4 labels)
 INSERT INTO label(id, nom) VALUES
