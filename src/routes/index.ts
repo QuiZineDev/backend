@@ -7,6 +7,7 @@ import searchRouter from "./search"
 import historyRouter from "./history"
 import loginRouter from "./login"
 import profileRouter from "./profile"
+import quizResultsRouter from "./quizResults"
 
 import friendsRouter from "./friends"
 
@@ -21,5 +22,6 @@ router.use("/history", historyRouter)
 router.use("/login", loginRouter)
 router.use("/profile", profileRouter)
 router.use("/friends", friendsRouter)
+router.use("/quizResults", quizResultsRouter)
 
 export default router
