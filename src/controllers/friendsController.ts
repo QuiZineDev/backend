@@ -1,4 +1,47 @@
 import { Request, Response } from "express"
+import { linkWithSomeone,findSpecificAmisById,Amis } from "../models/Amis"
+import { findUserById } from "../models/User"
+import { didIAsked,createFriendRequest } from "../models/FriendRequest"
+
+export const askFriend = (req: Request, res: Response) => {
+  const idValidator = Number(req.params.idValidator) as (number | null)
+  const currentIdUser = req.user
+
+  if (!idValidator) {
+      return res.status(400).json({ error: "idValidator is required" })
+    }
+  if (findUserById(idValidator) == null) {
+    return res.status(404).json({ error: "User not found" })
+  }
+
+  findSpecificAmisById(currentIdUser,idValidator).then((amis) => {
+    if (!amis) {
+        didIAsked(currentIdUser, idValidator).then((friendRequest) => {
+          if (friendRequest && friendRequest.length > 0) {
+            return res.status(400).json({ error: "You already asked this user" })
+          } else {
+            createFriendRequest(currentIdUser, idValidator).then((friendRequest) => {
+              if (!friendRequest) {
+                res.json({ message: `Friend request created` })
+              }})
+          }
+        })
+      } else {
+        res.status(400).json({ error: "Already Amis" })
+      }
+    })
+  res.json({ message: `Get friends of the current user` })
+}
+
+export const acceptFriend = (req: Request, res: Response) => {
+  // Dummy login logic
+  res.json({ message: `Get friends of the current user` })
+}
+
+export const refuseFriend = (req: Request, res: Response) => {
+  // Dummy login logic
+  res.json({ message: `Get friends of the current user` })
+}
 
 export const getFriends = (req: Request, res: Response) => {
   // Dummy login logic

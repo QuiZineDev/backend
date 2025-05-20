@@ -3,7 +3,6 @@ import { findQuizById } from "../models/Quiz"
 
 
 export const getQuizes = (req: Request, res: Response) => {
-  // Dummy login logic
   const idQuiz = Number(req.params.idQuiz) as (number | null)
   if (!idQuiz) {
     return res.status(400).json({ error: "idQuiz is required" })
