@@ -2,6 +2,7 @@ import { supabase } from '../supabaseClient';
 import { Choice,findChoicesByQuestionId } from '../models/Choice';
 import { Question } from '../types/core/Question';
 import { QuestionWithChoices } from '../types/PopulatedTypes';
+import { createLabelisable } from './Labelisable';
 
 export	{ Question };
 
@@ -27,6 +28,8 @@ export async function createQuestion(name: string, id_answer: number, grade: num
     id_creator,
     private: isprivate
   };
+
+  createLabelisable();
 
   const { data, error } = await supabase
     .from('question')

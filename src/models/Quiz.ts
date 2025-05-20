@@ -1,9 +1,9 @@
 import { supabase } from '../supabaseClient';
-import { findQuestionsByQuizId } from '../models/Question';
+import { findQuestionsByQuizId } from './Question';
 import { Quiz } from '../types/core/Quiz';
 import { User } from './User';
 import { QuizWithQuestionsWithChoices } from '../types/PopulatedTypes';
-
+import { createLabelisable } from './Labelisable';
 export	{ Quiz };
 
 export async function findQuizById(id: number, user:User): Promise<QuizWithQuestionsWithChoices | null> {
@@ -46,6 +46,8 @@ export async function createQuiz(nom: string, picture: (Uint8Array | null), ispr
     private: isprivate,
     id_creator
     };
+
+  createLabelisable();
   
     const { data, error } = await supabase
     .from('quiz')
