@@ -175,13 +175,13 @@ INSERT INTO game_request(id_session, id_requestor, id_validator, datetime) VALUE
   (5,5,6, now()),
   (6,6,7, now());
 
-INSERT INTO participation(id, id_session, id_user, datetime, score) VALUES
-  (1,1,1, now(),  8),
-  (2,2,2, now(),  6),
-  (3,3,3, now(),  7),
-  (4,4,4, now(),  9),
-  (5,5,5, now(), 10),
-  (6,6,6, now(),  5);
+INSERT INTO participation(id_session, id_user, datetime, score) VALUES
+  (1,1, now(),  8),
+  (2,2, now(),  6),
+  (3,3, now(),  7),
+  (4,4, now(),  9),
+  (5,5, now(), 10),
+  (6,6, now(),  5);
 
 INSERT INTO answers(id, id_participation, id_question, id_decision, duration) VALUES
   (1,1,1,  1, 12),
