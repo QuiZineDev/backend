@@ -7,6 +7,10 @@ import { setupSwagger } from './swagger';
 import { supabase } from './supabaseClient';
 import passport from "./middleware/passport";
 import session from 'express-session';
+import http from "http"
+import { Server } from "socket.io"
+import { setupGameSocket } from "./sockets/gameSocket";
+
 /**
  * Fonction pour tester la connexion à Supabase
  */
@@ -39,6 +43,16 @@ const swaggerOptions = require("../swaggerOptions.js")
 const swaggerSpec = swaggerJsdoc(swaggerOptions)
 
 const app = express()
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+})
+
+setupGameSocket(io)
+
 app.use(express.json())
 
 // Optionally, make supabase available in req
@@ -64,7 +78,8 @@ app.use("/api", routes)
 
 setupSwagger(app);
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("Server running on http://localhost:3000")
   console.log("Swagger docs available at http://localhost:3000/api-docs")
+  console.log("Socket.io game namespace available at /game")
 })
