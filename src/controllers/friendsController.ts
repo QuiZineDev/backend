@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import { linkWithSomeone,findSpecificAmisById,findAmisById } from "../models/Amis"
 import { findUserById } from "../models/User"
 import { didIAsked,createFriendRequest,deleteFriendRequest } from "../models/FriendRequest"
+import { findUserById } from "../models/User"
 
 export const askFriend = (req: Request, res: Response) => {
   const idValidator = Number(req.params.idValidator) as (number | null)
@@ -59,12 +60,15 @@ export const refuseFriend = (req: Request, res: Response) => {
   })
 }
 
-export const getFriends = (req: Request, res: Response) => {
+export const getFriends = async (req: Request, res: Response) => {
   const currentIdUser = req.user.id
-  findAmisById(currentIdUser).then((amis) => {
-    if (!amis) {
-      res.status(404).json({ error: "No friends found" })
-    }
-    res.json(amis)
-  })
+  const amis = await findAmisById(currentIdUser)
+  if (!amis || amis.length === 0) {
+    return res.status(404).json({ error: "No friends found" })
+  }
+  // Fetch all friends in parallel
+  const friends = await Promise.all(
+    amis.map(async (ami) => await findUserById(ami.id_validator))
+  )
+  res.json({ friends })
 }
