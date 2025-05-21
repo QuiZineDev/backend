@@ -13,6 +13,7 @@ import rateRouter from "./rate"
 import friendsRouter from "./friends"
 import inviteUsersRouter from "./inviteUsers"
 import sessionRouter from "./session"
+import gameRouter from "./game"
 
 const router = Router()
 
@@ -79,5 +80,6 @@ router.use("/createQuiz", creatQuizRouter)
 router.use("/rate", rateRouter)
 router.use("/session", sessionRouter)
 router.use("/", authRouter)
+router.use("/game", gameRouter)
 
 export default router

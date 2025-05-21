@@ -3,4 +3,7 @@ import { createListOfGamesResquests } from "../models/GameRequest"
 const router = Router()
 
 
-router.post("/game/game_request", createListOfGamesResquests)
+router.post("/game_request", createListOfGamesResquests)
+router.post("/")
+
+export default router
