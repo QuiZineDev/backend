@@ -34,9 +34,18 @@ ALTER SEQUENCE participation_id_seq RESTART WITH 1;
 ALTER SEQUENCE answers_id_seq RESTART WITH 1;
 ALTER SEQUENCE label_id_seq RESTART WITH 1;
 
-INSERT INTO labelisable(id) VALUES
-  null,null,null,null,null,null,
-  null,null,null,null,null,null;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
+INSERT INTO labelisable DEFAULT VALUES;
 
 -- 2) UTILISATEURS (9 en tout)
 INSERT INTO "user"(id, username, password, picture, admin) VALUES
