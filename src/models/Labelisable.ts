@@ -4,7 +4,6 @@ import { Labelisable } from '../types/core/Labelisable'
 export	{ Labelisable };
 
 export async function createLabelisable(): Promise<Labelisable | null> {
-  console.log("Creating labelisable");
 
   const { data, error } = await supabase
     .from('labelisable')
@@ -12,7 +11,6 @@ export async function createLabelisable(): Promise<Labelisable | null> {
     .select('*')
     .single();
   
-  console.log("Created labelisable");
 
   if (error) return null;
   return data as Labelisable;

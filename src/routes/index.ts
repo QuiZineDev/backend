@@ -13,6 +13,7 @@ import rateRouter from "./rate"
 import friendsRouter from "./friends"
 import inviteUsersRouter from "./inviteUsers"
 import sessionRouter from "./session"
+import { User } from "../models/User"
 
 const router = Router()
 
@@ -58,11 +59,11 @@ router.use((req, res, next) => {
     }
   
     if (req.isAuthenticated && req.isAuthenticated()) {
-        console.log("is authed")
+        console.log((req.user as User).username," is authed ✅ \n",)
       return next();
     }
-    console.log("not authed")
-    return res.status(401).json({ error: "Unauthorized" });
+    console.log("❌ not authed\n")
+    return res.status(401).json({ error: "Unauthorized\n" });
   });
 
 router.use("/library", libraryRouter)

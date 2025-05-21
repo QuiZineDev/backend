@@ -16,7 +16,6 @@ export async function findQuizById(id: number, user:User): Promise<QuizWithQuest
 
   if (error) return null;
   await findQuestionsByQuizId(id).then((questions) => {
-    console.log(questions);
     data.questions = questions;
   });
   return data as QuizWithQuestionsWithChoices;
@@ -54,15 +53,13 @@ export async function createQuiz(nom: string, picture: (Uint8Array | null), ispr
   const labelisable = await createLabelisable()
   newQuiz.id = labelisable.id
 
-  console.log("Creating quiz");
   const { data, error } = await supabase
   .from('quiz')
   .insert(newQuiz)
   .select('*')
   .single()
   
-
-  console.log("Created quiz");
+  //console.log("Created quiz");
 
   if (error) return null;
   return data as Quiz;

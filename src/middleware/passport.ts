@@ -6,10 +6,9 @@ import { findUserByUsername, findUserById, User } from '../models/User';
 
 passport.use(new LocalStrategy(
   async (username, password, done) => {
-    console.log("local strat")
+    // console.log("local strat")
     try {
       const user: User | null = await findUserByUsername(username);
-      console.log(password, user.password)
       if (!user) return done(null, false, { message: 'Incorrect username' });
       const valid = await bcrypt.compare(password, user.password);
       if (!valid) return done(null, false, { message: 'Incorrect password' });
