@@ -5,7 +5,7 @@ export const rate = (req: Request, res: Response) => {
     const { idLabelisable, idUser, grade } = req.body
     const newGrade = createGrade(idLabelisable, idUser, grade)
     res.json({ message: `Rated quiz ${idLabelisable} with grade ${grade}`, newGrade })
-    }
+}
 
 export const getRate = async (req: Request, res: Response) => {
     const { idLabelisable } = req.query
