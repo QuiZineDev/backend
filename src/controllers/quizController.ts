@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { findQuizById } from "../models/Quiz"
+import { findQuizById,findQuizzesByName } from "../models/Quiz"
 
 
 export const getQuizes = (req: Request, res: Response) => {
