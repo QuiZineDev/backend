@@ -2,7 +2,6 @@ import { Request, Response } from "express"
 import { linkWithSomeone,findSpecificAmisById,findAmisById } from "../models/Amis"
 import { findUserById } from "../models/User"
 import { didIAsked,createFriendRequest,deleteFriendRequest } from "../models/FriendRequest"
-import { findUserById } from "../models/User"
 
 export const askFriend = (req: Request, res: Response) => {
   const idValidator = Number(req.params.idValidator) as (number | null)
