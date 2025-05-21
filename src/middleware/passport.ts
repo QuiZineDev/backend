@@ -12,8 +12,9 @@ passport.use(new LocalStrategy(
       if (!user) return done(null, false, { message: 'Incorrect username' });
       const valid = await bcrypt.compare(password, user.password);
       if (!valid) return done(null, false, { message: 'Incorrect password' });
-
+      console.log((user as User).username," is connected ✅ \n",)
       return done(null, user);
+
     } catch (err) {
         console.error("ERROR ON PASSPORT CHECK USER")
       return done(err);
