@@ -4,23 +4,6 @@ const router = Router()
 
 /**
  * @swagger
- * /history:
- *   get:
- *     summary: Historique de l’utilisateur
- *     tags: [User]
- *     responses:
- *       200:
- *         description: Historique de quiz ou d’actions
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- */
-/**
- * @swagger
  * tags:
  *   name: History
  *   description: Historique des parties et quiz joués
@@ -30,11 +13,11 @@ const router = Router()
  * @swagger
  * /history:
  *   get:
- *     summary: Récupérer l'historique de l'utilisateur
+ *     summary: Récupère l'historique des quiz du joueur connecté
  *     tags: [History]
  *     responses:
  *       200:
- *         description: Historique récupéré
+ *         description: Liste de l'historique
  *         content:
  *           application/json:
  *             schema:
@@ -42,7 +25,13 @@ const router = Router()
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Logged in as 1"
+ *                   example: "Historique récupéré avec succès"
+ *                 history:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Quiz'
+ *       404:
+ *         description: Aucun historique trouvé
  */
 router.get("/", returnHistory)
 
