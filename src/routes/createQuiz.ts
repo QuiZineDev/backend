@@ -4,6 +4,16 @@ const router = Router()
 
 /**
  * @swagger
+ * /createQuiz:
+ *   get:
+ *     summary: Créer un nouveau quiz (formulaire ou structure)
+ *     tags: [Quiz]
+ *     responses:
+ *       200:
+ *         description: Création de quiz possible
+ */
+/**
+ * @swagger
  * tags:
  *   name: CreateQuiz
  *   description: Création de quiz

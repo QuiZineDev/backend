@@ -4,6 +4,23 @@ const router = Router()
 
 /**
  * @swagger
+ * /profile:
+ *   get:
+ *     summary: Récupérer le profil utilisateur
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: Profil utilisateur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+/**
+ * @swagger
  * tags:
  *   name: Profile
  *   description: Gestion du profil utilisateur

@@ -16,6 +16,63 @@ const router = Router();
 
 /**
  * @swagger
+ * /login:
+ *   post:
+ *     summary: Connexion d’un utilisateur
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Utilisateur connecté
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *       401:
+ *         description: Identifiants invalides
+ */
+
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     summary: Inscription d’un nouvel utilisateur
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Utilisateur inscrit
+ *       409:
+ *         description: Nom d’utilisateur déjà pris
+ */
+
+/**
+ * @swagger
  * tags:
  *   name: Auth
  *   description: Gestion de l'authentification
