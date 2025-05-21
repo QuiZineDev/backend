@@ -30,7 +30,6 @@ export const askFriend = (req: Request, res: Response) => {
         res.status(400).json({ error: "Already Amis" })
       }
     })
-  res.json({ message: `Get friends of the current user` })
 }
 
 export const acceptFriend = (req: Request, res: Response) => {
