@@ -2,6 +2,7 @@ import { supabase } from '../supabaseClient';
 
 import { Label } from '../types/core/Label';
 import { NnLabelLabelisable } from '../types/core/NnLabelLabelisable';
+import { Question } from '../types/core/Question';
 
 export	{ Label };
 
@@ -31,4 +32,20 @@ export async function labelise(id_label: number, id_labelisable: number): Promis
     if (error) return null;
     return data as NnLabelLabelisable;
 }
+
+export async function createLabel(name: string): Promise<Label | null> {
+    const newLabel = {
+        nom: name
+    };
+
+    const { data, error } = await supabase
+        .from('label')
+        .insert(newLabel)
+        .select('*')
+        .single();
+
+    if (error) return null;
+    return data as Label;
+}
+
 
