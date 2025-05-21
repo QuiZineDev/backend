@@ -4,37 +4,6 @@ const router = Router()
 
 /**
  * @swagger
- * /inviteUser:
- *   get:
- *     summary: Inviter un utilisateur à une session de quiz
- *     tags: [Session]
- *     parameters:
- *       - in: query
- *         name: idSession
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID de la session
- *       - in: query
- *         name: idRequestor
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID de l’invitant
- *       - in: query
- *         name: idValidator
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID de l’invité
- *     responses:
- *       200:
- *         description: Invitation envoyée
- *       400:
- *         description: Paramètres manquants
- */
-/**
- * @swagger
  * tags:
  *   name: InviteUsers
  *   description: Invitation d'utilisateurs à une session de quiz
@@ -43,37 +12,61 @@ const router = Router()
 /**
  * @swagger
  * /inviteUsers:
- *   get:
+ *   post:
  *     summary: Inviter des utilisateurs à une session
  *     tags: [InviteUsers]
- *     parameters:
- *       - in: query
- *         name: idSession
- *         schema:
- *           type: integer
- *         description: ID de la session
- *       - in: query
- *         name: idRequestor
- *         schema:
- *           type: integer
- *         description: ID de l'utilisateur demandeur
- *       - in: query
- *         name: idValidator
- *         schema:
- *           type: integer
- *         description: ID de l'utilisateur invité
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               session:
+ *                 type: integer
+ *                 description: ID de la session de jeu
+ *                 example: 123
+ *               joueurs:
+ *                 type: array
+ *                 description: Tableau d'ID d'utilisateurs à inviter
+ *                 items:
+ *                   type: integer
+ *                 example: [1, 2, 3]
  *     responses:
  *       200:
- *         description: Invitation envoyée
+ *         description: Invitation envoyée, on reçoit une request
+ *       400:
+ *         description: No game requests created
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 message:
+ *                 error:
  *                   type: string
- *                   example: "Invitation envoyée"
+ *                   example: "Paramètres requis manquants"
+ *       404:
+ *         description: Error creating some game requests
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Paramètres requis manquants"
+ *       500:
+ *         description: Error creating game request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Erreur interne du serveur"
  */
-router.get("/", inviteUsers)
+
+router.post("/", inviteUsers)
 
 export default router
