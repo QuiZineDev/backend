@@ -23,64 +23,38 @@ const router = Router()
  *       404:
  *         description: Utilisateur non trouvé
  */
-router.post("/ask/:idValidator", askFriend)
+/**
+ * @swagger
+ * tags:
+ *   name: Friends
+ *   description: Gestion des amis
+ */
 
 /**
  * @swagger
- * /friends/accept/{idRequestor}:
+ * /friends/ask/{idValidator}:
  *   post:
- *     summary: Accepter une demande d’ami
+ *     summary: Demander en ami un utilisateur
  *     tags: [Friends]
  *     parameters:
  *       - in: path
- *         name: idRequestor
+ *         name: idValidator
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID du demandeur
+ *         description: ID de l'utilisateur à ajouter
+ *         example: 2
  *     responses:
  *       200:
- *         description: Ami accepté
+ *         description: Demande envoyée ou déjà existante
  *       400:
- *         description: Erreur de paramètre
+ *         description: Erreur de validation
+ *       404:
+ *         description: Utilisateur non trouvé
  */
+router.post("/ask/:idValidator", askFriend)
 router.post("/accept/:idRequestor", acceptFriend)
-
-/**
- * @swagger
- * /friends/refuse/{idRequestor}:
- *   post:
- *     summary: Refuser une demande d’ami
- *     tags: [Friends]
- *     parameters:
- *       - in: path
- *         name: idRequestor
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID du demandeur
- *     responses:
- *       200:
- *         description: Demande refusée
- */
 router.post("/refuse/:idRequestor", refuseFriend)
-
-/**
- * @swagger
- * /friends:
- *   get:
- *     summary: Liste des amis de l’utilisateur
- *     tags: [Friends]
- *     responses:
- *       200:
- *         description: Liste des amis
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- */
 router.get("/", getFriends)
 
 export default router

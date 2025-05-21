@@ -2,6 +2,7 @@ import express from "express"
 import swaggerJsdoc from "swagger-jsdoc"
 import swaggerUi from "swagger-ui-express"
 import routes from "./routes"
+import { setupSwagger } from './swagger';
 
 import { supabase } from './supabaseClient';
 import passport from "./middleware/passport";
@@ -60,6 +61,8 @@ app.use(passport.session());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.use("/api", routes)
+
+setupSwagger(app);
 
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000")
