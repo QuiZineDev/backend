@@ -65,12 +65,13 @@ export async function deleteQuestion(id: number): Promise<boolean> {
 
 export async function findQuestionsByQuizId(quizId: number): Promise<QuestionWithChoices[]> {
   const { data, error } = await supabase
-    .from('question')
-    .select('*')
+    .from('nn_quiz_question')
+    .select('question(*)')
     .eq('id_quiz', quizId);
 
-  if (error) return [];
-  const questions = data as QuestionWithChoices[];
+  if (error || !data) return [];
+  // Extract the question objects from the join result
+  const questions = data.map((row: any) => row.question) as QuestionWithChoices[];
   for (const question of questions) {
     question.choices = await findChoicesByQuestionId(question.id);
   }

@@ -15,7 +15,10 @@ export async function findQuizById(id: number, user:User): Promise<QuizWithQuest
     .single();
 
   if (error) return null;
-  data.questions = await findQuestionsByQuizId(id);
+  await findQuestionsByQuizId(id).then((questions) => {
+    console.log(questions);
+    data.questions = questions;
+  });
   return data as QuizWithQuestionsWithChoices;
 }
 
