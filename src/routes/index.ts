@@ -38,7 +38,7 @@ const router = Router()
 router.get("/", (req, res) => {
   res.json({
     routes: [
-      "/auth", "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/inviteUsers", "/quizResults", "/createQuiz", "/rate", "/session"
+      "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/inviteUsers", "/quizResults", "/createQuiz", "/rate", "/session"
     ]
   })
 })
@@ -78,5 +78,6 @@ router.use("/quizResults", quizResultsRouter)
 router.use("/createQuiz", creatQuizRouter)
 router.use("/rate", rateRouter)
 router.use("/session", sessionRouter)
+router.use("/", authRouter)
 
 export default router
