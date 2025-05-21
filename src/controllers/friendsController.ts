@@ -27,7 +27,7 @@ export const askFriend = (req: Request, res: Response) => {
           }
         })
       } else {
-        res.status(400).json({ error: "Already Amis" })
+        res.status(408).json({ error: "Already Amis" })
       }
     })
 }
@@ -43,7 +43,7 @@ export const acceptFriend = (req: Request, res: Response) => {
   linkWithSomeone(currentIdUser, idRequestor).then((amis) => {
     deleteFriendRequest(currentIdUser, idRequestor).then((friendRequest) => {
       if (!friendRequest) {
-        res.json({ message: `Friend request deleted, new friend acquired !` })
+        res.status(200).json({ message: `Friend request deleted, new friend acquired !` })
       }
     })
   })
@@ -53,7 +53,7 @@ export const acceptFriend = (req: Request, res: Response) => {
 export const refuseFriend = (req: Request, res: Response) => {
   deleteFriendRequest(req.user.id, Number(req.params.idRequestor)).then((friendRequest) => {
     if (!friendRequest) {
-      res.json({ message: `Friend request deleted` })
+      res.status(200).json({ message: `Friend request deleted` })
     }
   })
 }
@@ -68,5 +68,5 @@ export const getFriends = async (req: Request, res: Response) => {
   const friends = await Promise.all(
     amis.map(async (ami) => await findUserById(ami.id_validator))
   )
-  res.json({ friends })
+  res.status(200).json({ friends })
 }

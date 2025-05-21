@@ -32,7 +32,7 @@ const router = Router()
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               nom:
  *                 type: string
  *                 description: Nom du quiz
  *               picture:
@@ -43,7 +43,7 @@ const router = Router()
  *                 description: Quiz privé ou non
  *     responses:
  *       200:
- *         description: Quiz créé
+ *         description: Create new quiz
  *         content:
  *           application/json:
  *             schema:
