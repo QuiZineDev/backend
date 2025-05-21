@@ -13,7 +13,7 @@ export const inviteUsers = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "No game requests created" })
   }
   if (request.includes(false)) {
-    return res.status(400).json({ message: "Error creating some game requests" })
+    return res.status(404).json({ message: "Error creating some game requests" })
   }
-  res.json(request)
+  res.status(200).json(request)
 }
