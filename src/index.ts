@@ -86,5 +86,5 @@ setupSwagger(app);
 server.listen(3000, () => {
   console.log("Server running on http://localhost:3000")
   console.log("Swagger docs available at http://localhost:3000/api-docs")
-  console.log("Socket.io game namespace available at /game")
+  console.log("Socket.io game namespace available at /api/ws")
 })
