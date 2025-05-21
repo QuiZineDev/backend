@@ -1,7 +1,9 @@
 import { Request, Response } from "express"
+import { getRecentHistory } from "../models/User"
+import{ User } from "../types/core/User"
 
-export const getProfile = (req: Request, res: Response) => {
-  // Dummy login logic
-  const { idUser } = req.body
-  res.json({ message: `Logged in as ${idUser}` })
+
+export const getProfile = async (req: Request, res: Response) => {
+  const u = req.user as User
+  res.json({ User: u.username, historique: await getRecentHistory(Number(u.id)) })
 }

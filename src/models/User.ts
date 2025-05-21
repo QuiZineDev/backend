@@ -2,6 +2,7 @@
 import { supabase } from '../supabaseClient';
 
 import { User } from '../types/core/User';
+import { Participation } from '../types/core/Participation';
 
 export { User }
 // Find user by username
@@ -38,4 +39,25 @@ export async function createUser(username: string, hashedPassword: string): Prom
 
   if (error) return null;
   return data as User;
+}
+
+export async function getHistory(id: number): Promise<Participation[] | null> {
+  const { data, error } = await supabase
+    .from('participation')
+    .select('*')
+    .eq('id_user', id)
+    .order('datetime', { ascending: false });
+  if (error) return null;
+  return data as Participation[];
+}
+
+export async function getRecentHistory(id: number): Promise<Participation[] | null> {
+  const { data, error } = await supabase
+    .from('participation')
+    .select('*')
+    .eq('id_user', id)
+    .order('datetime', { ascending: false })
+    .limit(4);
+  if (error) return null;
+  return data as Participation[];
 }
