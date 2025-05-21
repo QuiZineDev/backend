@@ -48,16 +48,16 @@ INSERT INTO labelisable DEFAULT VALUES;
 INSERT INTO labelisable DEFAULT VALUES;
 
 -- 2) UTILISATEURS (9 en tout)
-INSERT INTO "user"(id, username, password, picture, admin) VALUES
-  (1, 'alice',    'pwdAlice', NULL, FALSE),
-  (2, 'bob',      'pwdBob',   NULL, FALSE),
-  (3, 'charlie',  'pwdChar',  NULL, TRUE),
-  (4, 'david',    'pwdDav',   NULL, FALSE),
-  (5, 'eva',      'pwdEva',   NULL, FALSE),
-  (6, 'frank',    'pwdFrank', NULL, FALSE),
-  (7, 'grace',    'pwdGrace', NULL, FALSE),
-  (8, 'hank',     'pwdHank',  NULL, FALSE),
-  (9, 'ivy',      'pwdIvy',   NULL, FALSE);
+INSERT INTO "user"(username, password, picture, admin) VALUES
+  ('alice',    'pwdAlice', NULL, FALSE),
+  ('bob',      'pwdBob',   NULL, FALSE),
+  ('charlie',  'pwdChar',  NULL, TRUE),
+  ('david',    'pwdDav',   NULL, FALSE),
+  ('eva',      'pwdEva',   NULL, FALSE),
+  ('frank',    'pwdFrank', NULL, FALSE),
+  ('grace',    'pwdGrace', NULL, FALSE),
+  ('hank',     'pwdHank',  NULL, FALSE),
+  ('ivy',      'pwdIvy',   NULL, FALSE);
 
 
 -- 3) QUIZ & LABELISABLE (6 quizzes)
@@ -93,37 +93,37 @@ INSERT INTO question(id, name, id_answer, grade, picture, duration, id_creator, 
   (6, 'Résoudre 12 * 11 = ?',               NULL, 3, NULL, 15, 6, FALSE);
 
 -- 7) CHOIX (4 par question, total 24)
-INSERT INTO choice(id, content, id_question) VALUES
+INSERT INTO choice(content, id_question) VALUES
   -- Q1
-  (1,  'Paris',     1),
-  (2,  'Lyon',      1),
-  (3,  'Marseille', 1),
-  (4,  'Bordeaux',  1),
+  ('Paris',     1),
+  ('Lyon',      1),
+  ('Marseille', 1),
+  ('Bordeaux',  1),
   -- Q2
-  (5,  '12',        2),
-  (6,  '10',        2),
-  (7,  '13',        2),
-  (8,  '11',        2),
+  ('12',        2),
+  ('10',        2),
+  ('13',        2),
+  ('11',        2),
   -- Q3
-  (9,  'Java',      3),
-  (10, 'Python',    3),
-  (11, 'C#',        3),
-  (12, 'HTML',      3),
+  ('Java',      3),
+  ('Python',    3),
+  ('C#',        3),
+  ('HTML',      3),
   -- Q4
-  (13, 'H2O',       4),
-  (14, 'CO2',       4),
-  (15, 'O2',        4),
-  (16, 'NaCl',      4),
+  ('H2O',       4),
+  ('CO2',       4),
+  ('O2',        4),
+  ('NaCl',      4),
   -- Q5
-  (17, '1789',      5),
-  (18, '1799',      5),
-  (19, '1804',      5),
-  (20, '1776',      5),
+  ('1789',      5),
+  ('1799',      5),
+  ('1804',      5),
+  ('1776',      5),
   -- Q6
-  (21, '132',       6),
-  (22, '122',       6),
-  (23, '142',       6),
-  (24, '112',       6);
+  ('132',       6),
+  ('122',       6),
+  ('142',       6),
+  ('112',       6);
 
 -- 8) MISE À JOUR DES RÉPONSES CORRECTES
 UPDATE question
