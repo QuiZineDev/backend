@@ -25,8 +25,8 @@ TRUNCATE TABLE
 CASCADE;
 
 INSERT INTO labelisable(id) VALUES
-  (1),(2),(3),(4),(5),(6),
-  (7),(8),(9),(10),(11),(12);
+  null,null,null,null,null,null,
+  null,null,null,null,null,null;
 
 -- 2) UTILISATEURS (9 en tout)
 INSERT INTO "user"(id, username, password, picture, admin) VALUES

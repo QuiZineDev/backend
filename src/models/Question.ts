@@ -20,6 +20,7 @@ export async function findQuestionById(id: number): Promise<QuestionWithChoices 
 
 export async function createQuestion(name: string, id_answer: number, grade: 0, picture: (Uint8Array | null), duration: number, id_creator: number, isprivate: boolean): Promise<Question | null> {
   const newQuestion = {
+    id: null,
     name,
     id_answer,
     grade,
@@ -29,8 +30,8 @@ export async function createQuestion(name: string, id_answer: number, grade: 0, 
     private: isprivate
   };
 
-  createLabelisable();
-
+  const labelisable = await createLabelisable();
+  newQuestion.id = labelisable.id;
   const { data, error } = await supabase
     .from('question')
     .insert(newQuestion)

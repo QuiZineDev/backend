@@ -44,19 +44,25 @@ export async function findQuizzesByCreator(creatorId: number): Promise<Quiz[]> {
 
 export async function createQuiz(nom: string, picture: (Uint8Array | null), isprivate: boolean, id_creator: number): Promise<Quiz | null> {
   const newQuiz = {
+    id: null,
     nom,
     picture,
     private: isprivate,
     id_creator
     };
 
-  createLabelisable();
+  const labelisable = await createLabelisable()
+  newQuiz.id = labelisable.id
+
+  console.log("Creating quiz");
+  const { data, error } = await supabase
+  .from('quiz')
+  .insert(newQuiz)
+  .select('*')
+  .single()
   
-    const { data, error } = await supabase
-    .from('quiz')
-    .insert(newQuiz)
-    .select('*')
-    .single();
+
+  console.log("Created quiz");
 
   if (error) return null;
   return data as Quiz;
