@@ -15,6 +15,7 @@ import inviteUsersRouter from "./inviteUsers"
 import sessionRouter from "./session"
 import { User } from "../models/User"
 import gameRouter from "./game"
+import labelRouter from "./label"
 
 const router = Router()
 
@@ -40,7 +41,7 @@ const router = Router()
 router.get("/", (req, res) => {
   res.json({
     routes: [
-      "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/inviteUsers", "/quizResults", "/createQuiz", "/rate", "/session"
+      "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/inviteUsers", "/quizResults", "/createQuiz", "/rate", "/session", "label"
     ]
   })
 })
@@ -82,5 +83,6 @@ router.use("/rate", rateRouter)
 router.use("/session", sessionRouter)
 router.use("/", authRouter)
 router.use("/game", gameRouter)
+router.use("/label", labelRouter)
 
 export default router

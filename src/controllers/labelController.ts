@@ -1,12 +1,10 @@
 import { Request, Response } from "express"
 import { createLabel,findLabelByName,labelise } from "../models/Label"
-import{ Label } from "../types/core/Label"
 
 
 export const postCreateLabel = async (req: Request, res: Response) => {
-  const { name } = req.body.name
-  await createLabel(name)
-  res.json({message:`Label ${name} created`})
+  await createLabel(req.params.nameLabel)
+  res.json({message:`Label ${req.params.nameLabel} created`})
 }
 
 export const getLabelByName = async (req: Request, res: Response) => {
