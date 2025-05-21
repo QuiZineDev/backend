@@ -1,6 +1,8 @@
 import { Request, Response } from "express"
 import { findSessionById, createSession } from "../models/Session"
 import { createParticipation, findParticipationByIdSession, addParticipation } from "../models/Participation"
+import { User } from "../models/User"
+import { findQuizById } from "../models/Quiz"
 
 export const joinSession = (req: Request, res: Response) => {
     const { idSession, idUser } = req.body
@@ -21,20 +23,25 @@ export const joinSession = (req: Request, res: Response) => {
     res.json({ message: `User ${idUser} joined session ${idSession}` })
 }
 
-export const createNewSession = (req: Request, res: Response) => {
-    const { idSession, idUser } = req.body
-    if (!idSession || !idUser) {
+export const createNewGameSession = (req: Request, res: Response) => {
+    const idQuiz = req.params.idQuiz as number | undefined;
+    const creator = req.user as User | undefined;
+    if (!creator || !idQuiz) {
         return res.status(400).json({ message: "Missing required fields" })
     }
 
-    const session = createSession(idSession, idUser)
-    if (!session) {
-        return res.status(500).json({ message: "Failed to create session" })
-    }
-    const participation = createParticipation(idSession, idUser)
-    if (!participation) {
-        return res.status(500).json({ message: "Failed to create participation" })
-    }
-
-    res.json({ message: `Session ${idSession} created by user ${idUser}` })
+    createSession(idQuiz, creator.id).then((session)=>{
+        if (!session) {
+            return res.status(500).json({ message: "Failed to create session" })
+        }
+        createParticipation(session.id, creator.id).then((participation)=>{
+            if (!participation) {
+                return res.status(500).json({ message: "Failed to create participation" })
+            }
+            findQuizById(idQuiz, creator).then((q)=>{
+                res.json({quiz: q, sessionId:session.id})
+            })
+            //res.json({ message: `Session ${session} created by user ${creator}` })
+        })
+    })
 }
