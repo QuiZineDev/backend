@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getQuizzes } from "../controllers/searchController"
+import { getQuizesByName,getUsersByName,getLabelByName } from "../controllers/searchController"
 const router = Router()
 
 /**
@@ -56,6 +56,8 @@ const router = Router()
  *                   type: string
  *                   example: "Logged in as 1"
  */
-router.get("/", getQuizzes)
+router.get("/quiz/:name", getQuizesByName)
+router.get("/users/:name", getUsersByName)
+router.get("/labels/:name", getLabelByName)
 
 export default router

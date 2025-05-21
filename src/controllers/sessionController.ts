@@ -36,10 +36,10 @@ export const createNewGameSession = (req: Request, res: Response) => {
         }
         createParticipation(session.id, creator.id).then((participation)=>{
             if (!participation) {
-                return res.status(500).json({ message: "Failed to create participation" })
+                return res.status(501).json({ message: "Failed to create participation" })
             }
             findQuizById(idQuiz, creator).then((q)=>{
-                res.json({quiz: q, sessionId:session.id})
+                res.status(201).json({quiz: q, sessionId:session.id})
             })
             //res.json({ message: `Session ${session} created by user ${creator}` })
         })

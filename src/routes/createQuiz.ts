@@ -22,12 +22,28 @@ const router = Router()
 /**
  * @swagger
  * /createQuiz:
- *   get:
+ *   post:
  *     summary: Créer un nouveau quiz
  *     tags: [CreateQuiz]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nom:
+ *                 type: string
+ *                 description: Nom du quiz
+ *               picture:
+ *                 type: string
+ *                 description: URL de l'image du quiz
+ *               isPrivate:
+ *                 type: boolean
+ *                 description: Quiz privé ou non
  *     responses:
  *       200:
- *         description: Quiz créé
+ *         description: Create new quiz
  *         content:
  *           application/json:
  *             schema:

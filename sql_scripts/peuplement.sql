@@ -70,11 +70,11 @@ INSERT INTO quiz(id, nom, picture, private, id_creator) VALUES
   (12, 'Math Challenge', NULL, TRUE,  6);
 
 -- 4) LABELS & LIAISONS (4 labels)
-INSERT INTO label(id, nom) VALUES
-  (1, 'trivia'),
-  (2, 'culture générale'),
-  (3, 'technologie'),
-  (4, 'histoire');
+INSERT INTO label(nom) VALUES
+  ('trivia'),
+  ('culture générale'),
+  ('technologie'),
+  ('histoire');
 
 INSERT INTO nn_label_labelisable(id_label, id_labelisable) VALUES
   (1,1),(2,2),(3,3),(4,5),(1,4),(2,6);

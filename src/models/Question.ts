@@ -78,3 +78,45 @@ export async function findQuestionsByQuizId(quizId: number): Promise<QuestionWit
   }
   return questions;
 }
+
+export async function findQuestionByCreatorId(creatorId: number): Promise<QuestionWithChoices[]> {
+  const { data, error } = await supabase
+    .from('question')
+    .select('*')
+    .eq('id_creator', creatorId);
+
+  if (error || !data) return [];
+  // Extract the question objects from the join result
+  const questions = data as QuestionWithChoices[];
+  for (const question of questions) {
+    question.choices = await findChoicesByQuestionId(question.id);
+  }
+  return questions;
+}
+
+export async function findQuestionsByLabelId(labelId: number): Promise<QuestionWithChoices[] | null> {
+  // 1. Get all labelisable ids for the given label
+  const { data: nnData, error: nnError } = await supabase
+    .from('nn_label_labelisable')
+    .select('id_labelisable')
+    .eq('id_label', labelId);
+
+  if (nnError || !nnData || nnData.length === 0) return [];
+
+  // 2. Extract labelisable ids
+  const labelisableIds = nnData.map((row: any) => row.id_labelisable);
+
+  // 3. Get all questions whose id is in labelisableIds
+  const { data: questions, error: qError } = await supabase
+    .from('question')
+    .select('*')
+    .in('id', labelisableIds);
+
+  if (qError || !questions) return [];
+  const questionswithchoices = questions as QuestionWithChoices[];
+  for (const question of questionswithchoices) {
+    question.choices = await findChoicesByQuestionId(question.id);
+  }
+  return questionswithchoices;
+}
+
