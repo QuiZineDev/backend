@@ -80,8 +80,8 @@ INSERT INTO nn_label_labelisable(id_label, id_labelisable) VALUES
   (1,1),(2,2),(3,3),(4,5),(1,4),(2,6);
 
 -- 5) SESSIONS (1 par quiz)
-INSERT INTO session(id, id_quiz) VALUES
-  (1,7),(2,8),(3,9),(4,10),(5,11),(6,12);
+INSERT INTO session(id_quiz) VALUES
+  (7),(8),(9),(10),(11),(12);
 
 -- 6) QUESTIONS (6 questions, id_answer NULL pour l'instant)
 INSERT INTO question(id, name, id_answer, grade, picture, duration, id_creator, private) VALUES
