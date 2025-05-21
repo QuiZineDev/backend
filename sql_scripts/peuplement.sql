@@ -24,6 +24,16 @@ TRUNCATE TABLE
   "user"
 CASCADE;
 
+ALTER SEQUENCE labelisable_id_seq RESTART WITH 1;
+ALTER SEQUENCE "user_id_seq" RESTART WITH 1;
+ALTER SEQUENCE quiz_id_seq RESTART WITH 1;
+ALTER SEQUENCE session_id_seq RESTART WITH 1;
+ALTER SEQUENCE question_id_seq RESTART WITH 1;
+ALTER SEQUENCE choice_id_seq RESTART WITH 1;
+ALTER SEQUENCE participation_id_seq RESTART WITH 1;
+ALTER SEQUENCE answers_id_seq RESTART WITH 1;
+ALTER SEQUENCE label_id_seq RESTART WITH 1;
+
 INSERT INTO labelisable(id) VALUES
   null,null,null,null,null,null,
   null,null,null,null,null,null;
@@ -39,6 +49,7 @@ INSERT INTO "user"(id, username, password, picture, admin) VALUES
   (7, 'grace',    'pwdGrace', NULL, FALSE),
   (8, 'hank',     'pwdHank',  NULL, FALSE),
   (9, 'ivy',      'pwdIvy',   NULL, FALSE);
+
 
 -- 3) QUIZ & LABELISABLE (6 quizzes)
 INSERT INTO quiz(id, nom, picture, private, id_creator) VALUES
