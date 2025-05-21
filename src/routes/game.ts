@@ -1,6 +1,10 @@
 import { Router } from "express"
-import { createListOfGamesResquests } from "../models/GameRequest"
+import { inviteUsers } from "../controllers/inviteUsersController"
+import { createNewGameSession } from "../controllers/sessionController"
 const router = Router()
 
 
-router.post("/game/game_request", createListOfGamesResquests)
+router.post("/gamerequest", inviteUsers)
+router.post("/create/session/:idQuiz", createNewGameSession)
+
+export default router
