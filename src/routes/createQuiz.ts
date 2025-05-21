@@ -37,6 +37,6 @@ const router = Router()
  *                   type: string
  *                   example: "Create new quiz"
  */
-router.get("/", CreateQuiz)
+router.post("/", CreateQuiz)
 
 export default router

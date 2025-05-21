@@ -20,6 +20,7 @@ export async function findQuestionById(id: number): Promise<QuestionWithChoices 
 
 export async function createQuestion(name: string, id_answer: number, grade: 0, picture: (Uint8Array | null), duration: number, id_creator: number, isprivate: boolean): Promise<Question | null> {
   const newQuestion = {
+    id: null,
     name,
     id_answer,
     grade,
@@ -29,8 +30,8 @@ export async function createQuestion(name: string, id_answer: number, grade: 0, 
     private: isprivate
   };
 
-  createLabelisable();
-
+  const labelisable = await createLabelisable();
+  newQuestion.id = labelisable.id;
   const { data, error } = await supabase
     .from('question')
     .insert(newQuestion)
@@ -65,12 +66,13 @@ export async function deleteQuestion(id: number): Promise<boolean> {
 
 export async function findQuestionsByQuizId(quizId: number): Promise<QuestionWithChoices[]> {
   const { data, error } = await supabase
-    .from('question')
-    .select('*')
+    .from('nn_quiz_question')
+    .select('question(*)')
     .eq('id_quiz', quizId);
 
-  if (error) return [];
-  const questions = data as QuestionWithChoices[];
+  if (error || !data) return [];
+  // Extract the question objects from the join result
+  const questions = data.map((row: any) => row.question) as QuestionWithChoices[];
   for (const question of questions) {
     question.choices = await findChoicesByQuestionId(question.id);
   }

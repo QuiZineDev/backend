@@ -20,3 +20,13 @@ export async function createGrade(id_creator: number, id_labelisable: number, gr
   if (error) return null;
   return data as Grade;
 }
+
+export async function getGrade(id_labelisable: number): Promise<Grade[] | null> {
+  const { data, error } = await supabase
+    .from('grade')
+    .select('*')
+    .eq('id_labelisable', id_labelisable);
+
+  if (error) return null;
+  return data as Grade[];
+}
