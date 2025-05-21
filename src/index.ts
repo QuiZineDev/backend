@@ -10,6 +10,8 @@ import session from 'express-session';
 import http from "http"
 import { Server } from "socket.io"
 import { setupGameSocket } from "./sockets/gameSocket";
+import { initIO } from "./io"
+
 
 /**
  * Fonction pour tester la connexion à Supabase
@@ -44,14 +46,17 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions)
 
 const app = express()
 const server = http.createServer(app)
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
-  }
-})
+// const io = new Server(server, {
+//   cors: {
+//     origin: "*",
+//     methods: ["GET", "POST"]
+//   }
+// })
+const io = initIO(server)
 
+console.log("avant setup")
 setupGameSocket(io)
+console.log("après setup")
 
 app.use(express.json())
 

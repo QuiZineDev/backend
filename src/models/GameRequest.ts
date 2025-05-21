@@ -40,6 +40,16 @@ export async function findGameRequestAsRequestor(id: number): Promise<GameReques
   return data as GameRequest[];
 }
 
+export async function findGameRequestAsSession(id_session: number): Promise<GameRequest[] | null> {
+  const { data, error } = await supabase
+    .from('game_requests')
+    .select('*')
+    .eq('id_session', id_session);
+
+  if (error) return null;
+  return data as GameRequest[];
+}
+
 export async function findGameRequestAsValidator(id: number): Promise<GameRequest[] | null> {
   const { data, error } = await supabase
     .from('game_requests')
@@ -58,4 +68,25 @@ export async function deleteGameRequest(id: number): Promise<GameRequest | null>
 
   if (error) return null;
   return data as GameRequest;
+}
+
+export async function deleteGameRequestBis(id_session, id_validator): Promise<GameRequest | null> {
+  const { data, error } = await supabase
+    .from('game_requests')
+    .delete()
+    .eq('id_session', id_session)
+    .eq('id_validator', id_validator);
+
+  if (error) return null;
+  return data as GameRequest;
+}
+
+export async function deleteAllGameRequests(id_session: number): Promise<GameRequest[] | null> {
+  const { data, error } = await supabase
+    .from('game_requests')
+    .delete()
+    .eq('id_session', id_session);
+
+  if (error) return null;
+  return data as GameRequest[];
 }

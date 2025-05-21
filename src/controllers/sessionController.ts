@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { findSessionById, createSession } from "../models/Session"
-import { createParticipation, findParticipationByIdSession, addParticipation } from "../models/Participation"
+import { createParticipation, findParticipationByIdSession, addParticipation, deleteParticipation } from "../models/Participation"
 import { User } from "../models/User"
 import { findQuizById } from "../models/Quiz"
 
@@ -43,5 +43,31 @@ export const createNewGameSession = (req: Request, res: Response) => {
             })
             //res.json({ message: `Session ${session} created by user ${creator}` })
         })
+
+        
     })
+
+    
 }
+
+export const quitSessionPrematurely = (req: Request, res: Response) => {
+    const idSession = req.params.idSession as string | undefined;
+    const user = req.user as User | undefined;
+
+    if (!idSession || !user) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    findParticipationByIdSession(Number(idSession)).then((participations) => {
+        let p = participations.find((e)=>e.id_user===user.id)
+
+        if (!p) {
+            return res.status(404).json({ message: "Participation not found or unauthorized" });
+        }
+
+        deleteParticipation(p.id)
+    }).catch((err) => {
+        console.error(err);
+        res.status(500).json({ message: "Error finding participation" });
+    });
+};

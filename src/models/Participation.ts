@@ -77,12 +77,34 @@ export async function addParticipation(id_session: number, id_user: number): Pro
   return data as Participation;
 }
 
-export async function setScore(id: number, score: number): Promise<Participation | null> {
+export async function setScore(id_participation: number, score: number): Promise<Participation | null> {
   const { data, error } = await supabase
     .from('participation')
     .update({ score })
-    .eq('id', id);
+    .eq('id', id_participation);
 
   if (error) return null;
   return data as Participation;
+}
+
+export async function setScoreBis(id_user: number, id_session: number, score: number): Promise<Participation | null> {
+  const { data, error } = await supabase
+    .from('participation')
+    .update({ score })
+    .eq('id_session', id_session)
+    .eq('id_user', id_user);
+
+  if (error) return null;
+  return data as Participation;
+}
+
+export async function deleteNullParticipationsOfSession(id_session): Promise<Participation[] |null> {
+  const { data, error } = await supabase
+    .from('participation')
+    .delete()
+    .eq('score', null)
+    .eq('id_session', id_session);
+
+  if (error) return null;
+  return data as Participation[];
 }
