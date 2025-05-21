@@ -7,9 +7,13 @@ const router = Router()
  * tags:
  *   - name: Labels
  *     description: Opérations liées aux labels
- *
- * /new/{name}:
+ */
+
+/**
+ * @swagger
+ * /new/:{nameLabel}:
  *   post:
+ * 
  *     summary: Crée un nouveau label
  *     tags:
  *       - Labels
@@ -23,9 +27,11 @@ const router = Router()
  *     responses:
  *       201:
  *         description: Label créé avec succès
- *       400:
- *         description: Requête invalide
- *
+ */
+router.post("/new/:nameLabel", postCreateLabel)
+
+/**
+ * @swagger
  * /add:
  *   post:
  *     summary: Ajoute un label à un élément labellisable
@@ -38,20 +44,18 @@ const router = Router()
  *           schema:
  *             type: object
  *             properties:
- *               labelId:
- *                 type: string
+ *               id_label:
+ *                 type: number
  *                 description: L'identifiant du label
- *               targetId:
- *                 type: string
+ *               id_labelisable:
+ *                 type: number
  *                 description: L'identifiant de l'élément labellisable
  *     responses:
  *       200:
  *         description: Label ajouté avec succès
- *       400:
- *         description: Requête invalide
+ *       404:
+ *         description: Label or labelisable not found
  */
-
-router.post("/new/:nameLabel", postCreateLabel)
 router.post("/add", addLabelToLabelisable)
 
 export default router
