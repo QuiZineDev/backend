@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getRecentlyAccssedQuizzes } from "./recentController"
+import { getRecentlyAccssedQuizzes } from "../controllers/recentController"
 
 const router = Router()
 
