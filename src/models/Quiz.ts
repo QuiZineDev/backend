@@ -114,17 +114,19 @@ export async function findQuizzesByLabelId(labelId: number): Promise<QuizWithQue
 export async function allAccessibleQuizOf(user:User): Promise<QuizWithQuestionsWithChoices[] | null> {
   const { data, error } = await supabase
     .from('quiz')
-    .select('*')
+    .select('id')
     .or(`id_creator.eq.${user.id}, private.eq.false`);
 
   if (error) return null;
+  let ret : QuizWithQuestionsWithChoices[];
   for(let i = 0; i++; i < data.length){
-    await findQuestionsByQuizId(data[i].id).then((questions) => {
-      data[i].questions = questions;
-    });
-  }
-
-  return data as QuizWithQuestionsWithChoices[];
+    await findQuizById(data[i].id, user).then((quiz) => {
+      if (quiz) {
+        ret.push(quiz);
+      }
+    }
+  )}
+  return ret as QuizWithQuestionsWithChoices[];
 }
 
 export async function createQuizWithQuestionsWithChoices(quiz: QuizTODO, user: User): Promise<QuizWithQuestionsWithChoices | null> {
