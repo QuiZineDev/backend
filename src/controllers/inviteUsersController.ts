@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { createListOfGamesResquests, deleteAllGameRequests, findGameRequestAsSession } from "../models/GameRequest"
+import { createListOfGamesResquests, deleteAllGameRequests, findGameRequestAsSession, findGameRequestAsValidator } from "../models/GameRequest"
 import { User } from "../models/User"
 import { findQuizById } from "../models/Quiz"
 import { getIO } from "../io"
@@ -38,5 +38,14 @@ export const inviteUsers = async (req: Request, res: Response) => {
       console.error(`[Timeout] Erreur dans le timeout de session ${session.id} :`, err)
     }
   }, 2 * 60 * 1000) // 2 minutes
+  res.status(200).json(request)
+}
+
+export const getGameRequestAsValidator = async (req: Request, res: Response) => {
+  const u = req.user as User
+  const request = await findGameRequestAsValidator(u.id)
+  if (!request) {
+    return res.status(500).json({ message: "Error fetching game requests" })
+  }
   res.status(200).json(request)
 }

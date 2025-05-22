@@ -1,6 +1,7 @@
 import { Router } from "express"
-import { inviteUsers } from "../controllers/inviteUsersController"
+import { inviteUsers, getGameRequestAsValidator } from "../controllers/inviteUsersController"
 import { createNewGameSession, quitSessionPrematurely } from "../controllers/sessionController"
+import { get } from "http"
 const router = Router()
 
 /**
@@ -77,4 +78,5 @@ router.post("/gamerequest", inviteUsers)
  */
 router.post("/create/session/:idQuiz", createNewGameSession)
 router.post("/delete/participation/:idSession", quitSessionPrematurely)
+router.get("/myGameRequest", getGameRequestAsValidator)
 export default router
