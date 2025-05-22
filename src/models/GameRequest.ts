@@ -23,7 +23,7 @@ export async function createListOfGamesResquests(id_session: number, id_requesto
       .insert([
         { id_session, id_requestor, id_validator: id_validator[i] }
       ]);
-
+      console.log(error)
     if (error) table_request.push(false);
     else table_request.push(true);
   }
