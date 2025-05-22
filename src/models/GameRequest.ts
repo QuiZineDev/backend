@@ -19,7 +19,7 @@ export async function createListOfGamesResquests(id_session: number, id_requesto
   const table_request: boolean[] = [];
   for (let i = 0; i < id_validator.length; i++) {
     const { data, error } = await supabase
-      .from('game_requests')
+      .from('game_request')
       .insert([
         { id_session, id_requestor, id_validator: id_validator[i] }
       ]);
