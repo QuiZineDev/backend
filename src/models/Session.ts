@@ -27,17 +27,20 @@ export async function findSessionsByQuizId(id_quiz: number): Promise<Session[]> 
 
 export async function createSession(id_quiz: number, id_creator: number): Promise<Session | null> {
   const newSession = {
-    id_quiz,
-    id_creator
+    id_quiz
   };
-
+  //,id_creator
   const { data, error } = await supabase
     .from('session')
     .insert(newSession)
     .select('*')
     .single();
 
-  if (error) return null;
+  if (error){
+
+    console.log("error create session : ", error);
+    return null;
+  }
   return data as Session;
 }
 

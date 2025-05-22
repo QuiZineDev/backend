@@ -40,10 +40,15 @@ export async function createParticipation(id_session: number, id_user: number): 
     .from('participation')
     .insert([
       { id_session, id_user }
-    ]);
+    ])
+    .select();
 
-  if (error) return null;
-  return data as Participation;
+  if (error){
+    console.log("erreur : ", error)
+    return null;
+  }
+  console.log(data, error)
+  return data[0] as Participation;
 }
 
 export async function deleteParticipation(id: number): Promise<Participation | null> {
