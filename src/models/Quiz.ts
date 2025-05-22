@@ -112,7 +112,7 @@ export async function findQuizzesByLabelId(labelId: number): Promise<QuizWithQue
 }
 
 export async function allAccessibleQuizOf(user:User): Promise<QuizWithQuestionsWithChoices[] | null> {
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from('quiz')
     .select('id')
     .or(`id_creator.eq.${user.id}, private.eq.false`);
