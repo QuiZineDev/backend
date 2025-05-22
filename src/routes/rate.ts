@@ -5,12 +5,12 @@ const router = Router()
 /**
  * @swagger
  * tags:
- *   - name: rate
+ *   - name: Rate
  *     description: Rate management
  * /:
  *   get:
  *     tags:
- *       - rate
+ *       - Rate
  *     summary: Get the current rate
  *     responses:
  *       200:
@@ -28,7 +28,7 @@ const router = Router()
  * /new:
  *   post:
  *     tags:
- *       - rate
+ *       - Rate
  *     summary: Submit a new rate
  *     requestBody:
  *       required: true
