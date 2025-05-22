@@ -1,5 +1,7 @@
 import { Request, Response } from "express"
-import { findQuizById,findQuizzesByName, allAccessibleQuizOf } from "../models/Quiz"
+import { findQuizById,findQuizzesByName, allAccessibleQuizOf, createQuiz,createQuizWithQuestionsWithChoices } from "../models/Quiz"
+import { User } from "../models/User"
+import { QuizTODO } from "../types/core/QuizTODO"
 
 
 export const getQuizes = (req: Request, res: Response) => {
@@ -26,6 +28,20 @@ export const allAccessibleQuiz = (req: Request, res: Response) => {
       res.status(200).json(quizzes)
     } else if(!quizzes){
       res.status(404).json({ error: "Quizzes not found" })
+    }
+  })
+}
+
+export const postQuizWithQuestionsWithChoices = (req: Request, res: Response) => {
+  const quiz = req.body
+  if (!quiz) {
+    return res.status(400).json({ error: "quiz required" })
+  }
+  createQuizWithQuestionsWithChoices(quiz as QuizTODO, req.user as User).then((quizDone) => {
+    if (quizDone) {
+      res.status(200).json(quizDone)
+    } else if(!quizDone){
+      res.status(404).json({ error: "Quiz not found" })
     }
   })
 }

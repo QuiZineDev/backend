@@ -1,9 +1,11 @@
 import { supabase } from '../supabaseClient';
-import { findQuestionsByQuizId } from './Question';
+import { createQuestion, findQuestionsByQuizId, updateQuestion } from './Question';
 import { Quiz } from '../types/core/Quiz';
 import { User } from './User';
 import { QuizWithQuestionsWithChoices } from '../types/PopulatedTypes';
 import { createLabelisable } from './Labelisable';
+import { QuizTODO } from '../types/core/QuizTODO';
+import { createChoice } from './Choice';
 export	{ Quiz };
 
 export async function findQuizById(id: number, user:User): Promise<QuizWithQuestionsWithChoices | null> {
@@ -118,4 +120,26 @@ export async function allAccessibleQuizOf(user:User): Promise<QuizWithQuestionsW
   }
 
   return data as QuizWithQuestionsWithChoices[];
+}
+
+export async function createQuizWithQuestionsWithChoices(quiz: QuizTODO, user: User): Promise<QuizWithQuestionsWithChoices | null> {
+  const newQuiz = await createQuiz(quiz.nom, quiz.picture, quiz.private, user.id);
+  if (!newQuiz) return null;
+  for (const question of quiz.questions || []) {
+    const newQuestion = await createQuestion(question.name, null, 0, question.picture, question.duration, user.id, question.private);
+    let isAnswer = true
+    if (!newQuestion) return null;
+    for (const choice of question.choices || []) {
+      const choiceDone = await createChoice(choice.content, newQuestion.id);
+      if(isAnswer){
+        isAnswer = false
+        updateQuestion(newQuestion.id, question.name, choiceDone.id, 0, question.picture, question.duration, user.id, question.private);
+      }
+    }
+    const nn_quiz_question = await supabase
+      .from('nn_quiz_question')
+      .insert({ id_quiz: newQuiz.id, id_question: newQuestion.id });
+    if (nn_quiz_question.error) return null;
+  }
+  return findQuizById(newQuiz.id, user); 
 }
