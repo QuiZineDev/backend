@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getQuizesByName,getUsersByName,getLabelByName } from "../controllers/searchController"
+import { getQuizesByName,getUsersByName,getLabelByName,getAllUsers } from "../controllers/searchController"
 const router = Router()
 
 
@@ -91,4 +91,21 @@ router.get("/users/:name", getUsersByName)
  */
 router.get("/labels/:name", getLabelByName)
 
+/**
+ * @swagger
+ * /search/users:
+ *   get:
+ *     tags: [Search]
+ *     summary: Get all users
+ *     responses:
+ *       200:
+ *         description: List of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
+router.get("/users", getAllUsers)
 export default router

@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { findQuizzesByName } from "../models/Quiz"
-import { findUserByUsername } from "../models/User"
+import { findUserByUsername,allUsers } from "../models/User"
 import { findLabelByName } from "../models/Label"
 
 export const getQuizesByName = (req: Request, res: Response) => {
@@ -29,6 +29,16 @@ export const getLabelByName = (req: Request, res: Response) => {
       res.status(200).json(label)
     } else {
       res.status(404).json({ error: "Label not found" })
+    }
+  })
+}
+
+export const getAllUsers = (req: Request, res: Response) => {
+  allUsers().then((allUsersData) => {
+    if (allUsersData) {
+      return res.status(200).json(allUsersData);
+    } else {
+      return res.status(404).json({ error: "No users found" });
     }
   })
 }
