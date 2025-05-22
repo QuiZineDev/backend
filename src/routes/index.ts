@@ -1,5 +1,4 @@
 import { Router } from "express"
-import libraryRouter from "./library"
 import quizRouter from "./quiz"
 import exploreRouter from "./explore"
 import recentRouter from "./recent"
@@ -40,7 +39,7 @@ const router = Router()
 router.get("/", (req, res) => {
   res.json({
     routes: [
-      "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/quizResults", "/createQuiz", "/rate", "/session", "label"
+      "/quiz", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/quizResults", "/createQuiz", "/rate", "/session", "label"
     ]
   })
 })
@@ -67,7 +66,6 @@ router.use((req, res, next) => {
     return res.status(401).json({ error: "Unauthorized\n" });
   });
 
-router.use("/library", libraryRouter)
 router.use("/quiz", quizRouter)
 router.use("/explore", exploreRouter)
 router.use("/recent", recentRouter)
