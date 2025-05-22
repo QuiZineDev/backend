@@ -1,7 +1,6 @@
 import { Router } from "express"
 import quizRouter from "./quiz"
 import exploreRouter from "./explore"
-import recentRouter from "./recent"
 import searchRouter from "./search"
 import historyRouter from "./history"
 import authRouter from "./auth"
@@ -38,7 +37,7 @@ const router = Router()
 router.get("/", (req, res) => {
   res.json({
     routes: [
-      "/quiz", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "/session", "label"
+      "/quiz", "/explore", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "/session", "label"
     ]
   })
 })
@@ -67,7 +66,6 @@ router.use((req, res, next) => {
 
 router.use("/quiz", quizRouter)
 router.use("/explore", exploreRouter)
-router.use("/recent", recentRouter)
 router.use("/search", searchRouter)
 router.use("/history", historyRouter)
 router.use("/profile", profileRouter)
