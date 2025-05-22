@@ -118,8 +118,8 @@ export async function allAccessibleQuizOf(user:User): Promise<QuizWithQuestionsW
     .or(`id_creator.eq.${user.id}, private.eq.false`);
 
   if (error) return null;
-  let ret : QuizWithQuestionsWithChoices[];
-  for(let i = 0; i++; i < data.length){
+  let ret : QuizWithQuestionsWithChoices[] = [];
+  for(let i = 0; i < data.length; i++){
     await findQuizById(data[i].id, user).then((quiz) => {
       if (quiz) {
         ret.push(quiz);
