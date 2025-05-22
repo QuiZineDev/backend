@@ -1,9 +1,10 @@
 import { Request, Response } from "express"
 import { createGrade, getGrade } from "../models/Grade"   
+import { User } from "../models/User"
 
 export const rate = (req: Request, res: Response) => {
-    const { idLabelisable, idUser, grade } = req.body
-    const newGrade = createGrade(idLabelisable, idUser, grade)
+    const { idLabelisable, grade } = req.body
+    const newGrade = createGrade(idLabelisable, (req.user as User).id, grade)
     res.json({ message: `Rated quiz ${idLabelisable} with grade ${grade}`, newGrade })
 }
 

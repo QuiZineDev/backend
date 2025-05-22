@@ -1,15 +1,35 @@
 import { Router } from "express"
-import { rate } from "../controllers/rateController"
+import { rate,getRate } from "../controllers/rateController"
 const router = Router()
 
 /**
  * @swagger
- * /rate:
+ * tags:
+ *   - name: rate
+ *     description: Rate management
+ * /:
+ *   get:
+ *     tags:
+ *       - rate
+ *     summary: Get the current rate
+ *     responses:
+ *       200:
+ *         description: Returns the current rate
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rate:
+ *                   type: number
+ *                   example: 4.5
+ *       500:
+ *         description: Server error
+ * /new:
  *   post:
  *     tags:
  *       - rate
- *     summary: Rate a quiz
- *     description: Assign a grade to a quiz by a user.
+ *     summary: Submit a new rate
  *     requestBody:
  *       required: true
  *       content:
@@ -18,17 +38,14 @@ const router = Router()
  *             type: object
  *             properties:
  *               idLabelisable:
- *                 type: integer
- *                 example: 1
- *               idUser:
- *                 type: integer
- *                 example: 42
+ *                 type: string
+ *                 example: "quiz123"
  *               grade:
  *                 type: number
- *                 example: 4.5
+ *                 example: 5
  *     responses:
  *       200:
- *         description: Grade created
+ *         description: Rated quiz successfully
  *         content:
  *           application/json:
  *             schema:
@@ -36,45 +53,15 @@ const router = Router()
  *               properties:
  *                 message:
  *                   type: string
+ *                   example: "Rated quiz quiz123 with grade 5"
  *                 newGrade:
- *                   $ref: '#/components/schemas/Grade'
- *   get:
- *     tags:
- *       - rate
- *     summary: Get grades for a quiz
- *     description: Retrieve all grades for a given quiz.
- *     parameters:
- *       - in: query
- *         name: idLabelisable
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID of the quiz
- *     responses:
- *       200:
- *         description: Grades found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 grades:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Grade'
- *       404:
- *         description: No grades found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
+ *                   type: object
+ *       400:
+ *         description: Invalid input
+ *       500:
+ *         description: Server error
  */
-
-router.get("/", rate)
+router.get("/", getRate)
+router.post("/new", rate)
 
 export default router
