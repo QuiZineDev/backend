@@ -1,12 +1,11 @@
 services:
-  backend:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
+      - "3000:3000"  # Exposez le port de votre application
     environment:
-      - NODE_ENV=development
-    command: npm run start
+      - NODE_ENV=production
+      # Vous pouvez ajouter d'autres variables d'environnement si nécessaire
+    restart: unless-stopped

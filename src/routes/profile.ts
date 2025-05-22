@@ -4,23 +4,6 @@ const router = Router()
 
 /**
  * @swagger
- * /profile:
- *   get:
- *     summary: Récupérer le profil utilisateur
- *     tags: [User]
- *     responses:
- *       200:
- *         description: Profil utilisateur
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- */
-/**
- * @swagger
  * tags:
  *   name: Profile
  *   description: Gestion du profil utilisateur
@@ -34,15 +17,38 @@ const router = Router()
  *     tags: [Profile]
  *     responses:
  *       200:
- *         description: Profil utilisateur
+ *         description: Profil utilisateur avec historique récent
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 message:
+ *                 User:
  *                   type: string
- *                   example: "Logged in as 1"
+ *                   description: Nom d'utilisateur
+ *                   example: "john_doe"
+ *                 historique:
+ *                   type: array
+ *                   description: 4 dernières participations de l'utilisateur
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       id_user:
+ *                         type: integer
+ *                         example: 42
+ *                       id_session:
+ *                         type: integer
+ *                         example: 101
+ *                       datetime:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2024-06-01T12:34:56Z"
+ *                       score:
+ *                         type: number
+ *                         example: 85
  */
 router.get("/", getProfile)
 

@@ -9,7 +9,7 @@ export const getQuizes = (req: Request, res: Response) => {
   }
   findQuizById(idQuiz, req.user).then((quiz) => {
     if (quiz) {
-      res.json(quiz)
+      res.status(200).json(quiz)
     } else if(!quiz){
       res.status(404).json({ error: "Quiz not found" })
     }

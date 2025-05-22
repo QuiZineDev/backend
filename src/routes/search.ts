@@ -4,57 +4,74 @@ const router = Router()
 
 /**
  * @swagger
- * /search:
+ * /search/quiz/{name}:
  *   get:
- *     summary: Recherche de quiz
- *     tags: [Quiz]
+ *     tags: [search]
+ *     summary: Search quizzes by name
  *     parameters:
- *       - in: query
- *         name: q
+ *       - in: path
+ *         name: name
+ *         required: true
  *         schema:
  *           type: string
- *         description: Terme de recherche
+ *         description: Name of the quiz to search for
  *     responses:
  *       200:
- *         description: Résultats de la recherche
+ *         description: List of quizzes matching the name
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- */
-/**
- * @swagger
- * tags:
- *   name: Search
- *   description: Recherche de quiz
- */
-
-/**
- * @swagger
- * /search:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Quiz'
+ *       404:
+ *         description: No quizzes found
+ *
+ * /search/users/{name}:
  *   get:
- *     summary: Rechercher des quiz
- *     tags: [Search]
+ *     tags: [search]
+ *     summary: Search users by name
  *     parameters:
- *       - in: query
- *         name: q
+ *       - in: path
+ *         name: name
+ *         required: true
  *         schema:
  *           type: string
- *         description: Terme de recherche
+ *         description: Name of the user to search for
  *     responses:
  *       200:
- *         description: Résultats de la recherche
+ *         description: List of users matching the name
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Logged in as 1"
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       404:
+ *         description: No users found
+ *
+ * /search/labels/{name}:
+ *   get:
+ *     tags: [search]
+ *     summary: Search labels by name
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Name of the label to search for
+ *     responses:
+ *       200:
+ *         description: List of labels matching the name
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Label'
+ *       404:
+ *         description: No labels found
  */
 router.get("/quiz/:name", getQuizesByName)
 router.get("/users/:name", getUsersByName)

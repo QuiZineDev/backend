@@ -1,26 +1,18 @@
-# Utilise une image officielle Node.js comme image de base
-FROM node:20-alpine
+FROM node:24-slim
 
-# Définir le répertoire de travail
 WORKDIR /app
 
 # Copier les fichiers de dépendances
-COPY package.json package-lock.json* ./
+COPY package*.json ./
 
 # Installer les dépendances
 RUN npm install
 
-# Installer ts-node globalement pour s'assurer qu'il est disponible
-RUN npm install -g ts-node
-
 # Copier le reste du code source
 COPY . .
 
-# Compiler TypeScript (optionnel si vous utilisez ts-node en prod)
-# RUN npm run build
-
-# Exposer le port utilisé par l'application
+# Exposer le port
 EXPOSE 3000
 
-# Commande de démarrage
-CMD ["npm", "run", "start"]
+# Démarrer l'application avec npx pour s'assurer que ts-node est trouvé
+CMD ["npx", "ts-node", "src/index.ts"]

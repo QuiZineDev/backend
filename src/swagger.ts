@@ -12,8 +12,8 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000/api',
-        description: 'Développement local',
+        url: 'https://quiz.kerboul.me/api',
+        description: 'Développement en production',
       },
     ],
     components: {

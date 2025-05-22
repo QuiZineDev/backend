@@ -5,5 +5,5 @@ import{ User } from "../types/core/User"
 
 export const getProfile = async (req: Request, res: Response) => {
   const u = req.user as User
-  res.json({ User: u.username, historique: await getRecentHistory(Number(u.id)) })
+  res.status(200).json({ User: u, historique: await getRecentHistory(Number(u.id)) })
 }

@@ -80,8 +80,8 @@ INSERT INTO nn_label_labelisable(id_label, id_labelisable) VALUES
   (1,1),(2,2),(3,3),(4,5),(1,4),(2,6);
 
 -- 5) SESSIONS (1 par quiz)
-INSERT INTO session(id, id_quiz) VALUES
-  (1,7),(2,8),(3,9),(4,10),(5,11),(6,12);
+INSERT INTO session(id_quiz) VALUES
+  (7),(8),(9),(10),(11),(12);
 
 -- 6) QUESTIONS (6 questions, id_answer NULL pour l'instant)
 INSERT INTO question(id, name, id_answer, grade, picture, duration, id_creator, private) VALUES
@@ -175,13 +175,13 @@ INSERT INTO game_request(id_session, id_requestor, id_validator, datetime) VALUE
   (5,5,6, now()),
   (6,6,7, now());
 
-INSERT INTO participation(id, id_session, id_user, datetime, score) VALUES
-  (1,1,1, now(),  8),
-  (2,2,2, now(),  6),
-  (3,3,3, now(),  7),
-  (4,4,4, now(),  9),
-  (5,5,5, now(), 10),
-  (6,6,6, now(),  5);
+INSERT INTO participation(id_session, id_user, datetime, score) VALUES
+  (1,1, now(),  8),
+  (2,2, now(),  6),
+  (3,3, now(),  7),
+  (4,4, now(),  9),
+  (5,5, now(), 10),
+  (6,6, now(),  5);
 
 INSERT INTO answers(id, id_participation, id_question, id_decision, duration) VALUES
   (1,1,1,  1, 12),
