@@ -70,7 +70,7 @@ export function setupGameSocket(io: Server) {
         findUserById(userId)
         ]).then(([grs, s, u]) => {
           findQuizById(s.id_quiz, u).then((q)=>{
-            if(grs.length === 0){// la dernière personne vient de refuser
+            if(grs === null || grs.length === 0){// la dernière personne vient de refuser
               //le jeu démarre pour les autres
               io.of("/").to("session_" + sessionId.toString()).emit("gamestart", { session: sessionId, quiz: q }) 
             }

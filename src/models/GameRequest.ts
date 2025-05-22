@@ -6,7 +6,7 @@ export	{ GameRequest };
 
 export async function createGameRequest(id_session: number, id_requestor: number, id_validator: number): Promise<GameRequest | null> {
   const { data, error } = await supabase
-    .from('game_requests')
+    .from('game_request')
     .insert([
       { id_session, id_requestor, id_validator }
     ]);
@@ -32,7 +32,7 @@ export async function createListOfGamesResquests(id_session: number, id_requesto
 
 export async function findGameRequestAsRequestor(id: number): Promise<GameRequest[] | null> {
   const { data, error } = await supabase
-    .from('game_requests')
+    .from('game_request')
     .select('*')
     .eq('id_requestor', id);
 
@@ -42,10 +42,10 @@ export async function findGameRequestAsRequestor(id: number): Promise<GameReques
 
 export async function findGameRequestAsSession(id_session: number): Promise<GameRequest[] | null> {
   const { data, error } = await supabase
-    .from('game_requests')
+    .from('game_request')
     .select('*')
     .eq('id_session', id_session);
-
+  console.log("game request ?", data, error)
   if (error) return null;
   return data as GameRequest[];
 }
@@ -62,7 +62,7 @@ export async function findGameRequestAsValidator(id: number): Promise<GameReques
 
 export async function deleteGameRequest(id: number): Promise<GameRequest | null> {
   const { data, error } = await supabase
-    .from('game_requests')
+    .from('game_request')
     .delete()
     .eq('id', id);
 
@@ -72,7 +72,7 @@ export async function deleteGameRequest(id: number): Promise<GameRequest | null>
 
 export async function deleteGameRequestBis(id_session, id_validator): Promise<GameRequest | null> {
   const { data, error } = await supabase
-    .from('game_requests')
+    .from('game_request')
     .delete()
     .eq('id_session', id_session)
     .eq('id_validator', id_validator);
@@ -83,7 +83,7 @@ export async function deleteGameRequestBis(id_session, id_validator): Promise<Ga
 
 export async function deleteAllGameRequests(id_session: number): Promise<GameRequest[] | null> {
   const { data, error } = await supabase
-    .from('game_requests')
+    .from('game_request')
     .delete()
     .eq('id_session', id_session);
 
