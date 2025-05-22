@@ -52,6 +52,8 @@ router.get("/:idQuiz", getQuizes)
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Quiz'
+ *       404:
+ *         description: Quiz non trouvés
  */
 
 router.get("/", allAccessibleQuiz)
