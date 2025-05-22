@@ -8,7 +8,7 @@ export const joinSession = (req: Request, res: Response) => {
     const { idSession, idUser } = req.body
     const session = findSessionById(idSession)
     if (!session) {
-        return res.status(404).json({ message: "Session not found" })
+        return res.status(400).json({ message: "Session not found" })
     }
 
     const participation = findParticipationByIdSession(idSession)
@@ -20,7 +20,7 @@ export const joinSession = (req: Request, res: Response) => {
         return res.status(500).json({ message: "Failed to add participation" })
     }
 
-    res.json({ message: `User ${idUser} joined session ${idSession}` })
+    res.status(200).json({ message: `User ${idUser} joined session ${idSession}` })
 }
 
 export const createNewGameSession = (req: Request, res: Response) => {
