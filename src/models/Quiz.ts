@@ -1,10 +1,14 @@
 import { supabase } from '../supabaseClient';
-import { findQuestionsByQuizId } from './Question';
+import { createQuestion, findQuestionsByQuizId, updateQuestion } from './Question';
 import { Quiz } from '../types/core/Quiz';
-import { User } from './User';
+import { findUserById, User } from './User';
 import { QuizWithQuestionsWithChoices } from '../types/PopulatedTypes';
 import { createLabelisable } from './Labelisable';
+import { QuizTODO } from '../types/core/QuizTODO';
+import { createChoice } from './Choice';
+import { findLabelByNameExact,createLabel,labelise,findLabelsByLabelisableId } from './Label';
 export	{ Quiz };
+
 
 export async function findQuizById(id: number, user:User): Promise<QuizWithQuestionsWithChoices | null> {
   const { data, error } = await supabase
@@ -18,6 +22,9 @@ export async function findQuizById(id: number, user:User): Promise<QuizWithQuest
   await findQuestionsByQuizId(id).then((questions) => {
     data.questions = questions;
   });
+  const labelsToMap = await findLabelsByLabelisableId(id);
+  data.tags = labelsToMap.map((label) => label.nom);
+  data.createdBy = (await findUserById(data.id_creator)).username;
   return data as QuizWithQuestionsWithChoices;
 }
 
@@ -107,20 +114,48 @@ export async function findQuizzesByLabelId(labelId: number): Promise<QuizWithQue
 export async function allAccessibleQuizOf(user:User): Promise<QuizWithQuestionsWithChoices[] | null> {
   let { data, error } = await supabase
     .from('quiz')
-    .select('*')
+    .select('id')
     .or(`id_creator.eq.${user.id}, private.eq.false`);
 
   if (error) return null;
+  let ret : QuizWithQuestionsWithChoices[];
+  for(let i = 0; i++; i < data.length){
+    await findQuizById(data[i].id, user).then((quiz) => {
+      if (quiz) {
+        ret.push(quiz);
+      }
+    }
+  )}
+  return ret as QuizWithQuestionsWithChoices[];
+}
 
-  for (let i = 0; i < data.length; i++) {
-    console.log("ma bite")
-    await findQuestionsByQuizId(data[i].id).then((questions) => {
-      console.log("je mets des questions")
-      data[i]["questions"] = questions;
-    });
+export async function createQuizWithQuestionsWithChoices(quiz: QuizTODO, user: User): Promise<QuizWithQuestionsWithChoices | null> {
+  const newQuiz = await createQuiz(quiz.nom, quiz.picture, quiz.private, user.id);
+  if (!newQuiz) return null;
+
+  quiz.tags?.forEach(async (tag) => {
+    let labelTable = await findLabelByNameExact(tag);
+    if (labelTable == null) {
+      labelTable = await createLabel(tag);
+    }
+    await labelise(labelTable.id, newQuiz.id);
+  });
+
+  for (const question of quiz.questions || []) {
+    const newQuestion = await createQuestion(question.name, null, 0, question.picture, question.duration, user.id, question.private);
+    let isAnswer = true
+    if (!newQuestion) return null;
+    for (const choice of question.choices || []) {
+      const choiceDone = await createChoice(choice.content, newQuestion.id);
+      if(isAnswer){
+        isAnswer = false
+        updateQuestion(newQuestion.id, question.name, choiceDone.id, 0, question.picture, question.duration, user.id, question.private);
+      }
+    }
+    const nn_quiz_question = await supabase
+      .from('nn_quiz_question')
+      .insert({ id_quiz: newQuiz.id, id_question: newQuestion.id });
+    if (nn_quiz_question.error) return null;
   }
-  
-
-  console.log("data", data, data.length)
-  return data as QuizWithQuestionsWithChoices[];
+  return findQuizById(newQuiz.id, user); 
 }

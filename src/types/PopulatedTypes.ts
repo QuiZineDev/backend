@@ -27,6 +27,8 @@ export interface QuizWithQuestions extends Quiz {
 }
 export interface QuizWithQuestionsWithChoices extends Quiz {
   questions: QuestionWithChoices[];
+  tags: string[];
+  createdBy: string;
 }
 
 export interface QuizWithCreator extends Quiz {
