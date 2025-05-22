@@ -1,6 +1,5 @@
 import { Router } from "express"
-import { getQuizes } from "../controllers/quizController"
-import { allAccessibleQuizOf } from "../models/Quiz"
+import { getQuizes, allAccessibleQuiz } from "../controllers/quizController"
 const router = Router()
 
 /**
@@ -37,5 +36,23 @@ const router = Router()
  *         description: Quiz non trouvé
  */
 router.get("/:idQuiz", getQuizes)
-router.get("/", allAccessibleQuizOf)
+
+/**
+ * @swagger
+ * /quiz:
+ *   get:
+ *     summary: Récupérer tous les quiz accessibles par l'utilisateur
+ *     tags: [Quiz]
+ *     responses:
+ *       200:
+ *         description: Liste des quiz accessibles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Quiz'
+ */
+
+router.get("/", allAccessibleQuiz)
 export default router
