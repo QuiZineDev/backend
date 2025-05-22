@@ -15,6 +15,10 @@ const options = {
         url: 'https://quiz.kerboul.me/api',
         description: 'Développement en production',
       },
+      {
+        url: 'http://localhost:3000/api',
+        description: 'Développement local',
+      },
     ],
     components: {
       schemas: {
