@@ -1,7 +1,7 @@
 import { supabase } from '../supabaseClient';
 import { createQuestion, findQuestionsByQuizId, updateQuestion } from './Question';
 import { Quiz } from '../types/core/Quiz';
-import { User } from './User';
+import { findUserById, User } from './User';
 import { QuizWithQuestionsWithChoices } from '../types/PopulatedTypes';
 import { createLabelisable } from './Labelisable';
 import { QuizTODO } from '../types/core/QuizTODO';
@@ -22,7 +22,9 @@ export async function findQuizById(id: number, user:User): Promise<QuizWithQuest
   await findQuestionsByQuizId(id).then((questions) => {
     data.questions = questions;
   });
-  data.tags = await findLabelsByLabelisableId(id);
+  const labelsToMap = await findLabelsByLabelisableId(id);
+  data.tags = labelsToMap.map((label) => label.nom);
+  data.createdBy = (await findUserById(data.id_creator)).username;
   return data as QuizWithQuestionsWithChoices;
 }
 
