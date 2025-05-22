@@ -20,7 +20,7 @@ export function setupGameSocket(io: Server) {
 
     //accepte une notif
     socket.on("eventJoin", ({sessionId, userId}:{sessionId:number, userId:number}) => {
-      socket.join("session_" + sessionId.toString())
+      socket.join("session_" + sessionId.toString()) //
       
       deleteGameRequestBis(sessionId, userId).then((gr)=>{ //1, suprime
         Promise.all(
@@ -37,6 +37,10 @@ export function setupGameSocket(io: Server) {
         })
       })
     })
+
+    socket.on("eventJoinOrganiser", ({sessionId, userId}:{sessionId:number, userId:number}) => {
+      socket.join("session_" + sessionId.toString())
+     }) //
 
     socket.on("eventRefuse", ({sessionId, userId}:{sessionId:number, userId:number}) => {
       deleteGameRequestBis(sessionId, userId).then((gr)=>{ //delete
@@ -98,4 +102,6 @@ function emitLeaderboard(room: string, session_id:number) {
   // cleanup
   clearTimeout(board.timeout!);
   scoreboards.delete(room);
+
+
 }
