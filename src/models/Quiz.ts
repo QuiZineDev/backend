@@ -103,3 +103,19 @@ export async function findQuizzesByLabelId(labelId: number): Promise<QuizWithQue
     });
   return data as QuizWithQuestionsWithChoices[];
 }
+
+export async function allAccessibleQuizOf(user:User): Promise<QuizWithQuestionsWithChoices[] | null> {
+  const { data, error } = await supabase
+    .from('quiz')
+    .select('*')
+    .or(`id_creator.eq.${user.id}, private.eq.false`);
+
+  if (error) return null;
+  for(let i = 0; i++; i < data.length){
+    await findQuestionsByQuizId(data[i].id).then((questions) => {
+      data[i].questions = questions;
+    });
+  }
+
+  return data as QuizWithQuestionsWithChoices[];
+}

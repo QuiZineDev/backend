@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { getQuizes } from "../controllers/quizController"
+import { allAccessibleQuizOf } from "../models/Quiz"
 const router = Router()
 
 /**
@@ -36,5 +37,5 @@ const router = Router()
  *         description: Quiz non trouvé
  */
 router.get("/:idQuiz", getQuizes)
-
+router.get("/", allAccessibleQuizOf)
 export default router
