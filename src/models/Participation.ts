@@ -56,6 +56,8 @@ export async function deleteParticipation(id: number): Promise<Participation | n
     .from('participation')
     .delete()
     .eq('id', id);
+  
+    console.log("erreur ", error)
 
   if (error) return null;
   return data as Participation;
