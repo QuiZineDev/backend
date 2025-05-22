@@ -86,3 +86,12 @@ export async function getRecentQuizes(user: User): Promise<QuizWithQuestionsWith
   });
   return null;
 }
+
+export async function allUsers(){
+  const { data, error } = await supabase
+    .from('user')
+    .select('*');
+
+  if (error) return null;
+  return data as User[];
+}
