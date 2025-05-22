@@ -11,6 +11,7 @@ import friendsRouter from "./friends"
 import { User } from "../models/User"
 import gameRouter from "./game"
 import labelRouter from "./label"
+import recentRouter from "./recent"
 
 const router = Router()
 
@@ -30,13 +31,13 @@ const router = Router()
  *               type: object
  *               example:
  *                 routes: [
- *                  "/quiz", "/explore", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "label"
+ *                  "/quiz", "/explore","/recent", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "label"
  *                 ]
  */
 router.get("/", (req, res) => {
   res.json({
     routes: [
-      "/quiz", "/explore", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "label"
+      "/quiz", "/explore","/recent", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "label"
     ]
   })
 })
@@ -64,6 +65,7 @@ router.use((req, res, next) => {
   });
 
 router.use("/quiz", quizRouter)
+router.use("/recent", recentRouter)
 router.use("/explore", exploreRouter)
 router.use("/search", searchRouter)
 router.use("/history", historyRouter)
