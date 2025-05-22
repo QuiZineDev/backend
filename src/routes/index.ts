@@ -6,7 +6,6 @@ import searchRouter from "./search"
 import historyRouter from "./history"
 import authRouter from "./auth"
 import profileRouter from "./profile"
-import quizResultsRouter from "./quizResults"
 import creatQuizRouter from "./createQuiz"
 import rateRouter from "./rate"
 import friendsRouter from "./friends"
@@ -39,7 +38,7 @@ const router = Router()
 router.get("/", (req, res) => {
   res.json({
     routes: [
-      "/quiz", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/quizResults", "/createQuiz", "/rate", "/session", "label"
+      "/quiz", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "/session", "label"
     ]
   })
 })
@@ -73,7 +72,6 @@ router.use("/search", searchRouter)
 router.use("/history", historyRouter)
 router.use("/profile", profileRouter)
 router.use("/friends", friendsRouter)
-router.use("/quizResults", quizResultsRouter)
 router.use("/createQuiz", creatQuizRouter)
 router.use("/rate", rateRouter)
 router.use("/session", sessionRouter)
