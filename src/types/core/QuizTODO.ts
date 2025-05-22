@@ -4,4 +4,5 @@ export interface QuizTODO {
   picture: Uint8Array | null;
   private: boolean;
   questions?: QuestionTODO[];
+  tags?: string[];
 }

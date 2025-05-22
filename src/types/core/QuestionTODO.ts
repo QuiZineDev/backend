@@ -7,4 +7,5 @@ export interface QuestionTODO {
   id_creator?: number;
   private: boolean;
   choices: ChoiceTODO[];
+  tags?: string[];
 }

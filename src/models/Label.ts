@@ -6,11 +6,20 @@ import { Question } from '../types/core/Question';
 
 export	{ Label };
 
-export async function findLabelByName(name: string): Promise<Label | null> {
+export async function findLabelByName(name: string): Promise<Label[] | null> {
     const { data, error } = await supabase
         .from('label')
         .select('*')
         .ilike('nom', `%${name}%`)
+    
+    if (error) return null;
+    return data as Label[];
+}
+export async function findLabelByNameExact(name: string): Promise<Label | null> {
+    const { data, error } = await supabase
+        .from('label')
+        .select('*')
+        .eq('nom', name)
         .single();
     
     if (error) return null;

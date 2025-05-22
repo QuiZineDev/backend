@@ -6,7 +6,9 @@ import { QuizWithQuestionsWithChoices } from '../types/PopulatedTypes';
 import { createLabelisable } from './Labelisable';
 import { QuizTODO } from '../types/core/QuizTODO';
 import { createChoice } from './Choice';
+import { findLabelByNameExact,createLabel,labelise } from './Label';
 export	{ Quiz };
+
 
 export async function findQuizById(id: number, user:User): Promise<QuizWithQuestionsWithChoices | null> {
   const { data, error } = await supabase
@@ -125,6 +127,15 @@ export async function allAccessibleQuizOf(user:User): Promise<QuizWithQuestionsW
 export async function createQuizWithQuestionsWithChoices(quiz: QuizTODO, user: User): Promise<QuizWithQuestionsWithChoices | null> {
   const newQuiz = await createQuiz(quiz.nom, quiz.picture, quiz.private, user.id);
   if (!newQuiz) return null;
+
+  quiz.tags?.forEach(async (tag) => {
+    let labelTable = await findLabelByNameExact(tag);
+    if (labelTable == null) {
+      labelTable = await createLabel(tag);
+    }
+    await labelise(labelTable.id, newQuiz.id);
+  });
+
   for (const question of quiz.questions || []) {
     const newQuestion = await createQuestion(question.name, null, 0, question.picture, question.duration, user.id, question.private);
     let isAnswer = true
