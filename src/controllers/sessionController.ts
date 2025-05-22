@@ -65,7 +65,9 @@ export const quitSessionPrematurely = (req: Request, res: Response) => {
             return res.status(404).json({ message: "Participation not found or unauthorized" });
         }
 
-        deleteParticipation(p.id)
+        deleteParticipation(p.id).then((p)=>{
+            res.status(200).json(p)
+        })
     }).catch((err) => {
         console.error(err);
         res.status(500).json({ message: "Error finding participation" });
