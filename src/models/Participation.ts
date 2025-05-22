@@ -55,12 +55,13 @@ export async function deleteParticipation(id: number): Promise<Participation | n
   const { data, error } = await supabase
     .from('participation')
     .delete()
-    .eq('id', id);
+    .eq('id', id)
+    .select();
   
     console.log("erreur ", error)
 
   if (error) return null;
-  return data as Participation;
+  return data[0] as Participation;
 }
 
 export async function deleteParticipationByIdSession(id_session: number): Promise<Participation[] | null> {
