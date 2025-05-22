@@ -57,4 +57,13 @@ export async function createLabel(name: string): Promise<Label | null> {
     return data as Label;
 }
 
+export async function findLabelsByLabelisableId(id_labelisable: number): Promise<Label[] | null> {
+    const { data, error } = await supabase
+        .from('nn_label_labelisable')
+        .select('label(*)')
+        .eq('id_labelisable', id_labelisable);
 
+    if (error || !data) return null;
+    // Extract only the label objects
+    return data.map((row: any) => row.label) as Label[];
+}

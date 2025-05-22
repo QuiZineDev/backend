@@ -6,7 +6,7 @@ import { QuizWithQuestionsWithChoices } from '../types/PopulatedTypes';
 import { createLabelisable } from './Labelisable';
 import { QuizTODO } from '../types/core/QuizTODO';
 import { createChoice } from './Choice';
-import { findLabelByNameExact,createLabel,labelise } from './Label';
+import { findLabelByNameExact,createLabel,labelise,findLabelsByLabelisableId } from './Label';
 export	{ Quiz };
 
 
@@ -22,6 +22,7 @@ export async function findQuizById(id: number, user:User): Promise<QuizWithQuest
   await findQuestionsByQuizId(id).then((questions) => {
     data.questions = questions;
   });
+  data.tags = await findLabelsByLabelisableId(id);
   return data as QuizWithQuestionsWithChoices;
 }
 
