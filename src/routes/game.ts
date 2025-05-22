@@ -1,6 +1,7 @@
 import { Router } from "express"
-import { inviteUsers } from "../controllers/inviteUsersController"
+import { inviteUsers, getGameRequestAsValidator } from "../controllers/inviteUsersController"
 import { createNewGameSession, quitSessionPrematurely } from "../controllers/sessionController"
+import { get } from "http"
 const router = Router()
 
 /**
@@ -77,4 +78,24 @@ router.post("/gamerequest", inviteUsers)
  */
 router.post("/create/session/:idQuiz", createNewGameSession)
 router.post("/delete/participation/:idSession", quitSessionPrematurely)
+
+/**
+ * @swagger
+ * /api/game/myGameRequest:
+ *   get:
+ *     tags: [Game]
+ *     summary: Get game requests as a validator
+ *     responses:
+ *       200:
+ *         description: Game requests retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       500:
+ *         description: Error fetching game requests
+ */
+router.get("/myGameRequest", getGameRequestAsValidator)
 export default router

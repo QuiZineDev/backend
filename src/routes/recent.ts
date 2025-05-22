@@ -15,7 +15,7 @@ const router = Router()
  * /recent:
  *   get:
  *     summary: Récupérer les quiz récemment consultés
- *     tags: [Quiz]
+ *     tags: [Recent]
  *     responses:
  *       200:
  *         description: Liste des quiz récemment consultés
