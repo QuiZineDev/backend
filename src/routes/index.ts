@@ -8,7 +8,6 @@ import profileRouter from "./profile"
 import creatQuizRouter from "./createQuiz"
 import rateRouter from "./rate"
 import friendsRouter from "./friends"
-import sessionRouter from "./session"
 import { User } from "../models/User"
 import gameRouter from "./game"
 import labelRouter from "./label"
@@ -31,13 +30,13 @@ const router = Router()
  *               type: object
  *               example:
  *                 routes: [
- *                   "/auth", "/quiz", "/library", "/explore", "/recent", "/search", "/history", "/profile", "/friends", "/inviteUsers", "/quizResults", "/createQuiz", "/rate", "/session"
+ *                  "/quiz", "/explore", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "label"
  *                 ]
  */
 router.get("/", (req, res) => {
   res.json({
     routes: [
-      "/quiz", "/explore", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "/session", "label"
+      "/quiz", "/explore", "/search", "/history", "/profile", "/friends", "/createQuiz", "/rate", "label"
     ]
   })
 })
@@ -72,7 +71,6 @@ router.use("/profile", profileRouter)
 router.use("/friends", friendsRouter)
 router.use("/createQuiz", creatQuizRouter)
 router.use("/rate", rateRouter)
-router.use("/session", sessionRouter)
 router.use("/", authRouter)
 router.use("/game", gameRouter)
 router.use("/label", labelRouter)

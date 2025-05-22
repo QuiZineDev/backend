@@ -5,8 +5,8 @@ const router = Router()
 /**
  * @swagger
  * tags:
- *   name: Session
- *   description: Gestion des sessions de quiz
+ *   - name: Session
+ *     description: Gestion des sessions de quiz
  */
 
 /**
@@ -19,12 +19,16 @@ const router = Router()
  *       - in: query
  *         name: idSession
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: int32
+ *         required: true
  *         description: ID de la session à rejoindre
  *       - in: query
  *         name: idUser
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: int32
+ *         required: true
  *         description: ID de l'utilisateur
  *     responses:
  *       200:
@@ -41,6 +45,11 @@ const router = Router()
  *         description: Session ou participation non trouvée
  *       500:
  *         description: Erreur lors de l'ajout de la participation
+ *     x-codeSamples:
+ *       - lang: TypeScript
+ *         label: Response Example
+ *         source: |
+ *           res.status(200).json({ message: `User ${idUser} joined session ${idSession}` })
  */
 router.get("/", joinSession)
 

@@ -2,11 +2,19 @@ import { Router } from "express"
 import { getQuizesByName,getUsersByName,getLabelByName } from "../controllers/searchController"
 const router = Router()
 
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Search
+ *     description: Search management
+ */
+
 /**
  * @swagger
  * /search/quiz/{name}:
  *   get:
- *     tags: [search]
+ *     tags: [Search]
  *     summary: Search quizzes by name
  *     parameters:
  *       - in: path
@@ -26,10 +34,14 @@ const router = Router()
  *                 $ref: '#/components/schemas/Quiz'
  *       404:
  *         description: No quizzes found
- *
+ */
+router.get("/quiz/:name", getQuizesByName)
+
+/**
+ * @swagger
  * /search/users/{name}:
  *   get:
- *     tags: [search]
+ *     tags: [Search]
  *     summary: Search users by name
  *     parameters:
  *       - in: path
@@ -49,10 +61,14 @@ const router = Router()
  *                 $ref: '#/components/schemas/User'
  *       404:
  *         description: No users found
- *
+ */
+router.get("/users/:name", getUsersByName)
+
+/**
+ * @swagger
  * /search/labels/{name}:
  *   get:
- *     tags: [search]
+ *     tags: [Search]
  *     summary: Search labels by name
  *     parameters:
  *       - in: path
@@ -73,8 +89,6 @@ const router = Router()
  *       404:
  *         description: No labels found
  */
-router.get("/quiz/:name", getQuizesByName)
-router.get("/users/:name", getUsersByName)
 router.get("/labels/:name", getLabelByName)
 
 export default router
