@@ -54,7 +54,7 @@ export async function findGameRequestAsValidator(id: number): Promise<GameReques
   const { data, error } = await supabase
     .from('game_request')
     .select('*')
-    .eq('id_Validator', id);
+    .eq('id_validator', id);
   console.log("data error", data, error)
   if (error) return null;
   return data as GameRequest[];
