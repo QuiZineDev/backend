@@ -5,6 +5,8 @@ let io: Server
 
 export function initIO(server: http.Server) {
   io = new Server(server, {
+      path: "/api/ws", // ← c’est ça qui manque
+      //transports: ['websocket'],
       cors: {
         origin: "*",
         methods: ["GET", "POST"]

@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { inviteUsers, getGameRequestAsValidator } from "../controllers/inviteUsersController"
-import { createNewGameSession, quitSessionPrematurely } from "../controllers/sessionController"
+import { createNewGameSession, findSessionByIdController, quitSessionPrematurely } from "../controllers/sessionController"
 import { get } from "http"
 const router = Router()
 
@@ -98,4 +98,7 @@ router.post("/delete/participation/:idSession", quitSessionPrematurely)
  *         description: Error fetching game requests
  */
 router.get("/myGameRequest", getGameRequestAsValidator)
+
+
+router.get("/session/:idSession", findSessionByIdController)
 export default router

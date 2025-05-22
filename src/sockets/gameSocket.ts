@@ -14,14 +14,16 @@ const scoreboards = new Map<
 
 export function setupGameSocket(io: Server) {
   console.log("g fait websocket")
-  const gameNamespace = io.of("/api/ws")
+  const gameNamespace = io.of("/")
   gameNamespace.on("connection", (socket) => {
     console.log("[Socket] New client connected to /ws", socket.id)
-
+    socket.onAny((event, ...args) => {
+      console.log(`[Server] Event reçu : ${event}`, args);
+    });
     //accepte une notif
     socket.on("eventJoin", ({sessionId, userId}:{sessionId:number, userId:number}) => {
       socket.join("session_" + sessionId.toString()) //
-      
+      console.log("[Socket]", "eventJoin", "session_" + sessionId.toString())
       deleteGameRequestBis(sessionId, userId).then((gr)=>{ //1, suprime
         Promise.all(
           [createParticipation(sessionId, userId), 
@@ -31,7 +33,7 @@ export function setupGameSocket(io: Server) {
         ).then(([p, grs, s, u])=>{
             findQuizById(s.id_quiz, u).then((q)=>{
               if(grs.length === 0){// plus de demandeurs
-                io.of("/api/ws").to("session_" + sessionId.toString()).emit("gamestart", { session: sessionId, quiz: q }) 
+                io.of("/").to("session_" + sessionId.toString()).emit("gamestart", { session: sessionId, quiz: q }) 
               }
             })
         })
@@ -40,7 +42,25 @@ export function setupGameSocket(io: Server) {
 
     socket.on("eventJoinOrganiser", ({sessionId, userId}:{sessionId:number, userId:number}) => {
       socket.join("session_" + sessionId.toString())
-     }) //
+      console.log("eventjoin orga", "s", sessionId, "u", userId)
+      Promise.all(
+        [
+        findGameRequestAsSession(sessionId), //2 check restant
+        findSessionById(sessionId),
+        findUserById(userId)]
+      ).then(([grs, s, u])=>{
+          findQuizById(s.id_quiz, u).then((q)=>{
+            if(grs === null || grs.length === 0){// plus de demandeurs
+              io.of("/").to("session_" + sessionId.toString()).emit("gamestart", { session: sessionId, quiz: q }) 
+            }
+          })
+      })
+
+     })
+     socket.on("eventLeave", ({ sessionId, userId }: { sessionId: number, userId: number }) => {
+      socket.leave(`session_${sessionId}`);
+      console.log(`User ${userId} left session_${sessionId}`);
+    });
 
     socket.on("eventRefuse", ({sessionId, userId}:{sessionId:number, userId:number}) => {
       deleteGameRequestBis(sessionId, userId).then((gr)=>{ //delete
@@ -52,7 +72,7 @@ export function setupGameSocket(io: Server) {
           findQuizById(s.id_quiz, u).then((q)=>{
             if(grs.length === 0){// la dernière personne vient de refuser
               //le jeu démarre pour les autres
-              io.of("/api/ws").to("session_" + sessionId.toString()).emit("gamestart", { session: sessionId, quiz: q }) 
+              io.of("/").to("session_" + sessionId.toString()).emit("gamestart", { session: sessionId, quiz: q }) 
             }
           })
         }).catch((err) => {
@@ -97,7 +117,7 @@ function emitLeaderboard(room: string, session_id:number) {
   const io = getIO();
 
   // broadcast à la room
-  io.of("/api/ws").to(room).emit("leaderboard", sorted);
+  io.of("/").to(room).emit("leaderboard", sorted);
   deleteNullParticipationsOfSession(session_id)
   // cleanup
   clearTimeout(board.timeout!);

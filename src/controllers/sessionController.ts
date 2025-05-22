@@ -73,3 +73,14 @@ export const quitSessionPrematurely = (req: Request, res: Response) => {
         res.status(500).json({ message: "Error finding participation" });
     });
 };
+
+export const findSessionByIdController = (req: Request, res: Response) => {
+    let idSession = Number(req.params.idSession)
+    if(!idSession){
+        res.status(500).json({ message: "no id given" });
+    }
+
+    findSessionById(idSession).then((s)=>{
+        res.status(200).json(s)
+    })
+}
