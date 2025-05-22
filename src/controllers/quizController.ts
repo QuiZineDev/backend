@@ -17,10 +17,10 @@ export const getQuizes = (req: Request, res: Response) => {
 }
 
 export const allAccessibleQuiz = (req: Request, res: Response) => {
-  const idQuiz = Number(req.params.idQuiz) as (number | null)
-  if (!idQuiz) {
-    return res.status(400).json({ error: "idQuiz is required" })
-  }
+  // const idQuiz = Number(req.params.idQuiz) as (number | null)
+  // if (!idQuiz) {
+  //   return res.status(400).json({ error: "idQuiz is required" })
+  // }
   allAccessibleQuizOf(req.user).then((quizzes) => {
     if (quizzes) {
       res.status(200).json(quizzes)
