@@ -15,7 +15,7 @@ export async function findQuizById(id: number, user:User): Promise<QuizWithQuest
     .from('quiz')
     .select('*')
     .eq('id', id)
-    .or(`id_creator.eq.${user.id}, private.eq.false`)
+    //.or(`id_creator.eq.${user.id}, private.eq.false`)
     .single();
 
   if (error) return null;
